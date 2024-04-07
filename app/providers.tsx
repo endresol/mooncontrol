@@ -1,8 +1,14 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { type State, WagmiProvider } from "wagmi";
+import { WagmiProvider } from "wagmi";
 import { config } from "@/config";
+import type { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+import {
+  RainbowKitSiweNextAuthProvider,
+  GetSiweMessageOptions,
+} from "@rainbow-me/rainbowkit-siwe-next-auth";
 
 import {
   getDefaultConfig,
@@ -18,20 +24,30 @@ const rainbow_config = getDefaultConfig({
   projectId: "aa05c57bb029900be2fc78b619cd4558",
 });
 
+const getSiweMessageOptions: GetSiweMessageOptions = () => ({
+  statement: "Sign in to The Test App",
+});
+
 export function Providers({
   children,
-  initialState,
+  session,
 }: Readonly<{
   children: React.ReactNode;
-  initialState: State | undefined;
+  session: Session | null;
 }>) {
   return (
     <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={rainbow_config} initialState={initialState}>
-        <RainbowKitProvider theme={midnightTheme()}>
-          {children}
-        </RainbowKitProvider>
-      </WagmiProvider>
+      <SessionProvider session={session}>
+        <WagmiProvider config={rainbow_config}>
+          <RainbowKitSiweNextAuthProvider
+            getSiweMessageOptions={getSiweMessageOptions}
+          >
+            <RainbowKitProvider theme={midnightTheme()}>
+              {children}
+            </RainbowKitProvider>
+          </RainbowKitSiweNextAuthProvider>
+        </WagmiProvider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }
