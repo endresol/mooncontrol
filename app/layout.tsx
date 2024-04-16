@@ -27,9 +27,9 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-800`}>
         <Providers session={session}>
-          <div className='flex flex-col h-screen bg-gray-800 text-white'>
+          <div className='flex flex-col h-screen  text-white'>
             <Navbar />
 
             <div className='flex flex-1'>

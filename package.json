@@ -7,7 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate:mysql",
+    "db:up": "drizzle-kit up:mysql",
+    "db:deploy": "dotenv -e .env.local -o -- ts-node --files db/migrator.ts",
+    "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/test.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
@@ -16,8 +20,10 @@
     "@tanstack/react-query": "^5.28.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "drizzle-orm": "^0.30.7",
     "ethers": "^6.11.1",
     "lucide-react": "^0.364.0",
+    "mysql2": "^3.9.3",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18",
@@ -26,6 +32,7 @@
     "siwe": "^2.1.4",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
+    "ts-node": "^10.9.2",
     "viem": "2.x",
     "wagmi": "^2.5.13"
   },
@@ -34,6 +41,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "drizzle-kit": "^0.20.14",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",

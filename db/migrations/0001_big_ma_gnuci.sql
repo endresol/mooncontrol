@@ -1,0 +1,1 @@
+ALTER TABLE `avatar_owners` ADD CONSTRAINT `avatar_owners_nftId_unique` UNIQUE(`nftId`);
