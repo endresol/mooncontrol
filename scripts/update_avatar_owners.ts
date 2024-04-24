@@ -1,62 +1,58 @@
-import mysql from "mysql2/promise";
-import Web3 from "web3";
+import { createPublicClient, getContract, http, Address } from "viem";
+import { mainnet } from "viem/chains";
+import { avatarABI } from "../abis/avatar";
 
-const pool = mysql.createPool({
-  uri: process.env.DATABASE_URL,
+import { db } from "../db";
+import { avatar_owners } from "../db/schema/avatar_owners";
+type AvatarOwner = typeof avatar_owners.$inferInsert;
+
+const avatarAddress = process.env.NEXT_PUBLIC_AVATAR_CONTRACT as Address;
+
+const client = createPublicClient({
+  chain: mainnet,
+  transport: http(process.env.NEXT_PUBLIC_NETWORK_RPC),
 });
 
-const provider = process.env.NEXT_PUBLIC_NETWORK_RPC as string;
-const maladdress = process.env
-  .NEXT_PUBLIC_MOON_APE_LAB_GENESIS_CONTRACT as string;
-const abi = require("../abis/MALgenesis-ABI.json");
+const insertOwner = async (owner: AvatarOwner) => {
+  return db
+    .insert(avatar_owners)
+    .values(owner)
+    .onDuplicateKeyUpdate({
+      set: { address: owner.address },
+    });
+};
 
-async function getApeOwner(contract: Web3.Contract, apeId: number) {
-  const owner = await contract.methods.ownerOf(apeId).call();
-  console.log("owner", owner);
+async function run() {
+  const blockNumber = await client.getBlockNumber();
+  console.log("Current block number:", blockNumber);
 
-  try {
-    const [rows] = await pool.execute(
-      "SELECT * FROM nfts_apenft WHERE nft_id = ?",
-      [apeId]
-    );
+  const contract = getContract({
+    address: avatarAddress,
+    abi: avatarABI,
+    client: client,
+  });
 
-    if (rows.length > 0 && rows[0].owner !== owner) {
-      await pool.execute("UPDATE nfts_apenft SET owner = ? WHERE nft_id = ?", [
-        owner,
-        apeId,
-      ]);
+  const supply = await contract.read.totalSupply();
+
+  if (supply) {
+    for (let i = 1; i <= 10; i++) {
+      const owner = await contract.read.isTokenMinted([i]);
+      if (owner) {
+        const ownerAddress = await contract.read.ownerOf([i]);
+        if (ownerAddress) {
+          await insertOwner({
+            id: i,
+            address: ownerAddress.toString(),
+          });
+          console.log(i, "minted:", owner, ownerAddress);
+        }
+      } else {
+        console.log(i, "not minted");
+      }
     }
-  } catch (error) {
-    console.error(error);
   }
+
+  process.exit(0);
 }
 
-async function main() {
-  try {
-    const w3 = new Web3(provider as Web3.Provider);
-    const contract = new w3.eth.Contract(abi, maladdress) as Web3.Contract;
-
-    const totalSupply = await contract.methods.totalSupply().call();
-
-    console.log("totalSupply", totalSupply);
-
-    const t1 = Date.now();
-
-    for (let i = 1; i <= totalSupply; i++) {
-      await getApeOwner(contract, i);
-    }
-
-    const t2 = Date.now();
-
-    const timeMsg = `[live] Updated APE owners in ${Math.round(
-      (t2 - t1) / 1000
-    )} seconds`;
-
-    console.log(timeMsg);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-}
-
-main();
+run();
