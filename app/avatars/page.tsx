@@ -12,6 +12,7 @@ export default async function Avatars() {
   const session = await getServerSession(options);
   const wallet = session?.user?.name;
   let avatars;
+  console.log("first");
 
   if (wallet) {
     avatars = await db
