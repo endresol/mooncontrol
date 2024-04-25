@@ -12,7 +12,7 @@
     "db:generate": "drizzle-kit generate:mysql",
     "db:up": "drizzle-kit up:mysql",
     "db:deploy": "dotenv -e .env.local -o -- ts-node --files db/migrator.ts",
-    "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/test.ts"
+    "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/update_avatar_owners.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
