@@ -4,7 +4,12 @@ import { options } from "@/app/api/auth/[...nextauth]/options";
 import { createPublicClient, getContract, http, Address } from "viem";
 import { mainnet } from "viem/chains";
 import { avatarABI } from "@/abis/avatar";
+
+import fs from "fs";
+import path from "path";
+
 const avatarAddress = process.env.NEXT_PUBLIC_AVATAR_CONTRACT as Address;
+const avatarFolder = process.env.AVATAR_BLENDER_FOLDER;
 
 type GetParams = {
   params: {
@@ -39,16 +44,18 @@ export async function GET(req: Request, { params }: GetParams) {
     }
 
     if (owner === session.user?.name) {
-      const hiddenfileUrl = `https://storage.moonapelab.io/static/moonapes3d/images/${filename}.png`;
+      // const hiddenfileUrl = `https://storage.moonapelab.io/static/moonapes3d/images/${filename}.png`;
+      const filePath = path.resolve(`${avatarFolder}/${filename}.blend`);
+      const imageBuffer = fs.readFileSync(filePath);
 
-      const response = await fetch(hiddenfileUrl);
-
-      return new Response(response.body, {
+      const response = new Response(imageBuffer, {
         headers: {
-          ...response.headers,
-          "content-disposition": `attachment; filename="${filename}.png"`,
+          "Content-Type": "application/octet-stream",
+          "content-disposition": `attachment; filename="${filename}.blend"`,
         },
       });
+
+      return response;
     } else {
       return new Response("You do not own this NFT", {
         status: 403,
