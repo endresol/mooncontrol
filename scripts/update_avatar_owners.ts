@@ -32,10 +32,10 @@ async function run() {
     client: client,
   });
 
-  const supply = await contract.read.totalSupply();
+  const supply = (await contract.read.totalSupply()) as number;
 
   if (supply) {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= supply; i++) {
       const owner = await contract.read.isTokenMinted([i]);
       if (owner) {
         const ownerAddress = await contract.read.ownerOf([i]);
