@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth/next";
-import { options } from "@/app/api/auth/[...nextauth]/options";
+import { options } from "../../auth/[...nextauth]/options";
 
 import { createPublicClient, getContract, http, Address } from "viem";
 import { mainnet } from "viem/chains";
-import { avatarABI } from "@/abis/avatar";
+import { avatarABI } from "../../../../abis/avatar";
 
 import fs from "fs";
 import path from "path";
