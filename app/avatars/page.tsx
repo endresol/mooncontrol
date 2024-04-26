@@ -1,12 +1,12 @@
 import React from "react";
 
 import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
+import { options } from "../api/auth/[...nextauth]/options";
 
-import { db } from "@/db";
-import { avatar_owners } from "@/db/schema/avatar_owners";
+import { db } from "../../db";
+import { avatar_owners } from "../../db/schema/avatar_owners";
 import { eq } from "drizzle-orm";
-import { AvatarCard } from "@/components/AvatarCard";
+import { AvatarCard } from "../../components/AvatarCard";
 
 export default async function Avatars() {
   console.log("Avatars Page");
