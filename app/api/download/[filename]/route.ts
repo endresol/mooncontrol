@@ -19,7 +19,7 @@ type GetParams = {
 
 const client = createPublicClient({
   chain: mainnet,
-  transport: http(process.env.NEXT_PUBLIC_INFURA_API_KEY),
+  transport: http(process.env.NEXT_PUBLIC_NETWORK_RPC),
 });
 
 // export an async GET function. This is a convention in NextJS
@@ -34,7 +34,7 @@ export async function GET(req: Request, { params }: GetParams) {
 
   if (session) {
     const filename = params.filename;
-    console.log("Session", JSON.stringify(session, null, 2));
+    console.log("Session!", JSON.stringify(session, null, 2));
     const minted = await contract.read.isTokenMinted([filename]);
     console.log("minted:", minted);
 
