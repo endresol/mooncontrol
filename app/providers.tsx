@@ -25,7 +25,7 @@ const rainbow_config = getDefaultConfig({
 });
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: "Sign in to The Test App",
+  statement: "Sign in to The Moon Ape Lab Studio",
 });
 
 export function Providers({

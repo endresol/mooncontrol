@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { headers } from "next/headers";
+
+import localFont from "next/font/local";
+
 import { getServerSession } from "next-auth";
 
 import { Providers } from "./providers";
@@ -11,7 +12,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LeftMenu from "@/components/LeftMenu";
 
-const inter = Inter({ subsets: ["latin"] });
+const myFont = localFont({ src: "../public/FontsFree-Net-Rockinsoda.ttf" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={`${inter.className} bg-gray-800`}>
+      <body className={`${myFont.className} bg-gray-800`}>
         <Providers session={session}>
           <div className='flex flex-col h-screen  text-white'>
             <Navbar />

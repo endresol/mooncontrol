@@ -3,32 +3,21 @@ import Link from "next/link";
 import React from "react";
 import { FiDownload } from "react-icons/fi";
 
-export function AvatarCard(props: {
-  apeId:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | Promise<React.AwaitedReactNode>
-    | null
-    | undefined;
-}) {
+export function AvatarCard(props: { apeId: string }) {
   const test = 1;
 
   return (
-    <div className='rounded-lg shadow-md overflow-hidden min-h-[300px]'>
-      <div className='h-2/3 relative'>
+    <div className='rounded-lg shadow-md'>
+      <div className='relative w-full pb-[100%]'>
         <Image
-          className='h-full w-full object-cover '
+          className='absolute inset-0 h-full w-full object-cover rounded-t-lg'
           src={`https://storage.moonapelab.io/static/moonapes3d/images/${props.apeId}.png`}
           alt='Moon Ape Lab 3D Avatar'
           layout='fill'
         />
       </div>
-      <div className='bg-gray-100 p-2 h-1/3 flex items-center justify-between text-black'>
-        <span>{props.apeId}</span>
+      <div className='flex justify-between bg-gray-100 p-2 text-black'>
+        <span>3D Avatar #{props.apeId}</span>
         <Link target='_black' href={`/api/download/${props.apeId}`}>
           <FiDownload size={24} />
         </Link>

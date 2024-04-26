@@ -12,35 +12,28 @@ export default async function LeftMenu() {
       <li className='p-2 border rounded mb-2'>
         <Link href='/' className='flex items-center'>
           <FaHome />
-          <span className='ml-2'>Home</span>
+          <span className='ml-2 text-xl tracking-wider'>Home</span>
         </Link>
       </li>
 
       <li className='p-2 border rounded mb-2'>
         <Link href='/profile' className='flex items-center'>
           <FaUser />
-          <span className='ml-2'>Profile</span>
-        </Link>
-      </li>
-
-      <li className='p-2 border rounded mb-2'>
-        <Link href='/settings' className='flex items-center'>
-          <FaCog />
-          <span className='ml-2'>Settings</span>
+          <span className='ml-2 text-xl tracking-wider'>Profile</span>
         </Link>
       </li>
 
       <li className='p-2 border rounded mb-2'>
         <Link href='/genesis' className='flex items-center'>
           <GiMonkey />
-          <span className='ml-2'>Genesis</span>
+          <span className='ml-2 text-xl tracking-wider'>Genesis 2D</span>
         </Link>
       </li>
 
       <li className='p-2 border rounded mb-2'>
         <Link href='/avatars' className='flex items-center'>
           <GiMonkey />
-          <span className='ml-2'>3d Avatars</span>
+          <span className='ml-2 text-xl tracking-wider'>3D Avatars</span>
         </Link>
       </li>
 
@@ -51,19 +44,11 @@ export default async function LeftMenu() {
             className='flex items-center'
           >
             <FaCog />
-            <span className='ml-2'>logout</span>
+            <span className='ml-2 text-xl tracking-wider'>Logout</span>
           </Link>
         </li>
       ) : (
-        <li className='p-2 border rounded mb-2'>
-          <Link
-            href='/api/auth/signin?callbackUrl=/'
-            className='flex items-center'
-          >
-            <FaCog />
-            <span className='ml-2'>login</span>
-          </Link>
-        </li>
+        <br />
       )}
     </ul>
   );
