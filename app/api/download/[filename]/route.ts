@@ -36,6 +36,8 @@ export async function GET(req: Request, { params }: GetParams) {
     const filename = params.filename;
     console.log("Session", JSON.stringify(session, null, 2));
     const minted = await contract.read.isTokenMinted([filename]);
+    console.log("minted:", minted);
+
     let owner;
     if (minted) {
       owner = await contract.read.ownerOf([filename]);
@@ -43,9 +45,13 @@ export async function GET(req: Request, { params }: GetParams) {
       owner = null;
     }
 
+    console.log("owner", owner);
+
     if (owner === session.user?.name) {
       // const hiddenfileUrl = `https://storage.moonapelab.io/static/moonapes3d/images/${filename}.png`;
       const filePath = path.resolve(`${avatarFolder}/${filename}.blend`);
+      console.log("filepath", filePath);
+
       const imageBuffer = fs.readFileSync(filePath);
 
       const response = new Response(imageBuffer, {
