@@ -61,7 +61,7 @@ export const options: NextAuthOptions = {
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
-      console.log("Inside session callback", session, token);
+      // console.log("Inside session callback", session, token);
 
       session.address = token.sub;
       session.user.name = token.sub;

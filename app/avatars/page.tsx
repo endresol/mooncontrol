@@ -9,7 +9,12 @@ import { eq } from "drizzle-orm";
 import { AvatarCard } from "@/components/AvatarCard";
 
 export default async function Avatars() {
+  console.log("Avatars Page");
+
   const session = await getServerSession(options);
+
+  console.log("session", session);
+
   const wallet = session?.user?.name;
   let avatars;
   console.log("first");
