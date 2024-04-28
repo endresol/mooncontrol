@@ -25,8 +25,8 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
           <Image
             src={`https://storage.moonapelab.io/static/moonapes3d/images/${avatarId}.png`}
             alt={`3D Avatar #${avatarId}`}
-            width={1200}
-            height={1200}
+            width={600}
+            height={600}
             className='h-auto rounded-md w-full'
           />
         </div>
