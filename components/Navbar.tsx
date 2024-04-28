@@ -22,7 +22,7 @@ export default function Navbar() {
             className=''
           />
         </div>
-        <ConnectButton />
+        <ConnectButton label='Sign In' showBalance={false} />
       </div>
     </div>
   );
