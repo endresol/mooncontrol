@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "3860e996-9851-4e35-a700-7413ceab42c5",
+  "id": "03909c5f-97d1-4ef0-b2c2-670b80b7a7eb",
   "prevId": "de41b276-e941-4ca2-857b-72a0aa16b8c7",
   "tables": {
     "avatar_owners": {
@@ -49,7 +49,7 @@
           "name": "id",
           "type": "bigint",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": true
         },
         "nft_id": {
@@ -69,7 +69,14 @@
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "nfts_apenft_id": {
+          "name": "nfts_apenft_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     }
   },
