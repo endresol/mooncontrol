@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "59602ce4-e47f-4a83-8d7f-57ae3a4f06f4",
-  "prevId": "504a05c4-ba4b-4ba5-9f0c-af3a275aeb49",
+  "id": "3860e996-9851-4e35-a700-7413ceab42c5",
+  "prevId": "de41b276-e941-4ca2-857b-72a0aa16b8c7",
   "tables": {
     "avatar_owners": {
       "name": "avatar_owners",
