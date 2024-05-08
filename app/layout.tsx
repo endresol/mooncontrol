@@ -30,17 +30,19 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={`${myFont.className} bg-gray-800`}>
         <Providers session={session}>
-          <div className='flex flex-col h-screen  text-white'>
+          <div
+            className='flex flex-col h-screen text-white bg-no-repeat bg-cover my-background-div-id bg-scroll'
+            style={{ backgroundImage: `url("/mal-studio-bg-1.png")` }}
+          >
             <Navbar />
-
             <div className='flex flex-1'>
               <div className='w-64 p-4'>
                 <LeftMenu />
               </div>
-
-              <div className='flex-1 p-4'>{children}</div>
+              <div className='flex-1 p-4 bg-gray-800 bg-opacity-30 m-4'>
+                {children}
+              </div>
             </div>
-
             <Footer />
           </div>
         </Providers>

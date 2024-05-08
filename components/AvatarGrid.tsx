@@ -28,7 +28,7 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars }) => {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-4 md:grid-cols-6'>
+    <div className='flex justify-start gap-2 grow flex-wrap'>
       {avatars?.map((avatar) => (
         <>
           <AvatarCard
@@ -37,6 +37,7 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars }) => {
             onClick={() => openModal(avatar.id)}
           />
           <AvatarModal
+            key={avatar.id.toString()}
             isOpen={isModalOpen}
             onRequestClose={closeModal}
             avatarId={selectedNFT}

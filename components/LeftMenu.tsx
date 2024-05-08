@@ -3,82 +3,86 @@ import Link from "next/link";
 import { FaHome, FaUser, FaCog } from "react-icons/fa";
 import { GiMonkey } from "react-icons/gi";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import { buttonVariants } from "@/components/ui/button";
 
-export default async function LeftMenu() {
+const menuLinks = [
+  {
+    href: "/",
+    icon: <FaHome />,
+    label: "Home",
+    login: null,
+  },
+  {
+    href: "/profile",
+    icon: <FaUser />,
+    label: "Profile",
+    login: true,
+  },
+  {
+    href: "/genesis",
+    icon: <GiMonkey />,
+    label: "Genesis 2D",
+    login: true,
+  },
+  {
+    href: "/avatars",
+    icon: <GiMonkey />,
+    label: "3D Avatars",
+    login: true,
+  },
+  {
+    href: "/api/auth/signout?callbackUrl=/",
+    icon: <FaCog />,
+    label: "Logout",
+    login: true,
+  },
+  {
+    href: "/api/auth/signout?callbackUrl=/",
+    icon: <FaCog />,
+    label: "Sign in",
+    login: false,
+  },
+];
+
+const LeftMenu: React.FC = async () => {
   const session = await getServerSession(options);
 
+  const filteredMenuItems = menuLinks.filter((item) => {
+    if (session) {
+      return item.login === true || item.login === null;
+    } else {
+      return item.login === false || item.login === null;
+    }
+  });
+
   return (
-    <ul>
-      <li className='p-2'>
-        <Link
-          href='/'
-          className={`text-xl gap-4 ${buttonVariants({
-            variant: "outline",
-            size: "full",
-          })}`}
-        >
-          <FaHome />
-          <span className='ml-2 text-xl tracking-wider'>Home</span>
-        </Link>
-      </li>
+    <div className='flex flex-col justify-between h-full'>
+      <ul>
+        {filteredMenuItems.map((link, index) => (
+          <li key={index} className='p-2'>
+            <Link
+              href={link.href}
+              className={`text-xl flex gap-4 content-start ${buttonVariants({
+                variant: "outline",
+                size: "full",
+              })}`}
+            >
+              {link.icon}
+              <span className='ml-2 text-xl tracking-wider'>{link.label}</span>
+            </Link>
+          </li>
+        ))}
 
-      <li className='p-2'>
-        <Link
-          href='/profile'
-          className={`text-xl gap-4 ${buttonVariants({
-            variant: "outline",
-            size: "full",
-          })}`}
-        >
-          <FaUser />
-          <span className='ml-2 text-xl tracking-wider'>Profile</span>
-        </Link>
-      </li>
-
-      <li className='p-2'>
-        <Link
-          href='/genesis'
-          className={`text-xl gap-4 ${buttonVariants({
-            variant: "outline",
-            size: "full",
-          })}`}
-        >
-          <GiMonkey />
-          <span className='ml-2 text-xl tracking-wider'>Genesis 2D</span>
-        </Link>
-      </li>
-
-      <li className='p-2'>
-        <Link
-          href='/avatars'
-          className={`text-xl gap-4 ${buttonVariants({
-            variant: "outline",
-            size: "full",
-          })}`}
-        >
-          <GiMonkey />
-          <span className='ml-2 text-xl tracking-wider'>3D Avatars</span>
-        </Link>
-      </li>
-
-      {session ? (
-        <li className='p-2'>
-          <Link
-            href='/api/auth/signout?callbackUrl=/'
-            className={`text-xl gap-4 ${buttonVariants({
-              variant: "outline",
-              size: "full",
-            })}`}
-          >
-            <FaCog />
-            <span className='ml-2 text-xl tracking-wider'>Logout</span>
-          </Link>
-        </li>
-      ) : (
-        <br />
-      )}
-    </ul>
+        {!session ? (
+          <ConnectButton label='Sign In' showBalance={false} />
+        ) : (
+          <></>
+        )}
+      </ul>
+    </div>
   );
-}
+};
+
+export default LeftMenu;

@@ -2,7 +2,7 @@
 
 export default function Footer() {
   return (
-    <div className='p-4 bg-gray-900'>
+    <div className='p-4'>
       <a href='https://moonapelab.io'>moonapelab.io</a>
     </div>
   );
