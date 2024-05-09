@@ -1,5 +1,9 @@
-import { getServerSession } from "next-auth";
-import { headers } from "next/headers";
+"use client";
+
+// import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 import { FaHome, FaUser, FaCog } from "react-icons/fa";
 import { GiMonkey } from "react-icons/gi";
@@ -47,17 +51,15 @@ const menuLinks = [
   },
 ];
 
-const getData = async () => {
-  const myHeaders = headers();
+const LeftMenu: React.FC = () => {
+  // const session =  getServerSession(options);
+  const { data: session, status } = useSession();
+  const pathname = usePathname();
+  console.log("pathname", pathname);
 
-  return myHeaders;
-};
+  const isActive = (href: string) => pathname === href;
 
-const LeftMenu: React.FC = async () => {
-  const session = await getServerSession(options);
-  const data = await getData();
-
-  console.log("--", data);
+  console.log("--", session, status);
 
   const filteredMenuItems = menuLinks.filter((item) => {
     if (session) {
@@ -74,19 +76,41 @@ const LeftMenu: React.FC = async () => {
           <li key={index} className='p-2'>
             <Link
               href={link.href}
-              className={`text-xl flex flex-row  pl-4 gap-4  ${buttonVariants({
-                variant: "outlineleft",
-                size: "full",
-              })} flex-start`}
+              className={`text-xl flex flex-row pl-4 gap-4 group relative overflow-hidden ${buttonVariants(
+                {
+                  variant: "outlineleft",
+                  size: "full",
+                }
+              )} flex-start ${
+                isActive(link.href) ? "bg-slate-700 bg-opacity-70" : ""
+              }`}
             >
               {link.icon}
               <span className='ml-2 text-xl tracking-wider'>{link.label}</span>
+              <span className='group-hover:translate-x-4 '>
+                <svg
+                  className='w-5 h-5'
+                  fill='none'
+                  stroke='currentColor'
+                  viewBox='0 0 24 24'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                    stroke-width='2'
+                    d='M14 5l7 7m0 0l-7 7m7-7H3'
+                  ></path>
+                </svg>
+              </span>
             </Link>
           </li>
         ))}
 
         {!session ? (
-          <ConnectButton label='Sign In' showBalance={false} />
+          <li>
+            <ConnectButton label='Sign In' showBalance={false} />
+          </li>
         ) : (
           <></>
         )}
