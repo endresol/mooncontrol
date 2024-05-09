@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { FaHome, FaUser, FaCog } from "react-icons/fa";
 import { GiMonkey } from "react-icons/gi";
@@ -46,8 +47,17 @@ const menuLinks = [
   },
 ];
 
+const getData = async () => {
+  const myHeaders = headers();
+
+  return myHeaders;
+};
+
 const LeftMenu: React.FC = async () => {
   const session = await getServerSession(options);
+  const data = await getData();
+
+  console.log("--", data);
 
   const filteredMenuItems = menuLinks.filter((item) => {
     if (session) {
@@ -64,10 +74,10 @@ const LeftMenu: React.FC = async () => {
           <li key={index} className='p-2'>
             <Link
               href={link.href}
-              className={`text-xl flex gap-4 content-start ${buttonVariants({
-                variant: "outline",
+              className={`text-xl flex flex-row  pl-4 gap-4  ${buttonVariants({
+                variant: "outlineleft",
                 size: "full",
-              })}`}
+              })} flex-start`}
             >
               {link.icon}
               <span className='ml-2 text-xl tracking-wider'>{link.label}</span>
