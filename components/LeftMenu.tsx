@@ -43,12 +43,7 @@ const menuLinks = [
     label: "Logout",
     login: true,
   },
-  {
-    href: "/api/auth/signout?callbackUrl=/",
-    icon: <FaCog />,
-    label: "Sign in",
-    login: false,
-  },
+
 ];
 
 const LeftMenu: React.FC = () => {
