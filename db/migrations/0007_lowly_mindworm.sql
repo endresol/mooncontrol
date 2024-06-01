@@ -1,0 +1,1 @@
+ALTER TABLE `raffle_prizes` RENAME COLUMN `address` TO `winner`;
