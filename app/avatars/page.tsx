@@ -36,7 +36,7 @@ export default async function Avatars() {
 
   return (
     <>
-      <h2 className='text-4xl tracking-wider font-bold'> My 3D Avatars </h2>
+      <h2 className='text-xl'> My 3D Avatars </h2>
       {myAvatars.length > 0 ? (
         <AvatarGrid avatars={myAvatars} />
       ) : (

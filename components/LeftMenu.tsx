@@ -70,7 +70,7 @@ const LeftMenu: React.FC = () => {
           <li key={index} className='p-2'>
             <Link
               href={link.href}
-              className={`text-xl flex flex-row pl-4 gap-4 group relative overflow-hidden ${buttonVariants(
+              className={`text-xs flex flex-row pl-4 gap-4 group relative overflow-hidden ${buttonVariants(
                 {
                   variant: "outlineleft",
                   size: "full",
@@ -80,7 +80,7 @@ const LeftMenu: React.FC = () => {
               }`}
             >
               {link.icon}
-              <span className='ml-2 text-xl tracking-wider'>{link.label}</span>
+              <span className='ml-2'>{link.label}</span>
               <span className='group-hover:translate-x-4 '>
                 <svg
                   className='w-5 h-5'
