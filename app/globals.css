@@ -74,3 +74,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.connectButton__wrapper > div > button {
+
+  border: solid 2px white !important;
+  background-color: transparent !important;
+  margin-left: 10px !important;
+  border-radius: 0 !important;
+  width: 200px !important;
+}

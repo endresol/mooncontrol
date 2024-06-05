@@ -43,7 +43,6 @@ const menuLinks = [
     label: "Logout",
     login: true,
   },
-
 ];
 
 const LeftMenu: React.FC = () => {
@@ -103,7 +102,7 @@ const LeftMenu: React.FC = () => {
         ))}
 
         {!session ? (
-          <li>
+          <li className='connectButton__wrapper'>
             <ConnectButton label='Sign In' showBalance={false} />
           </li>
         ) : (
