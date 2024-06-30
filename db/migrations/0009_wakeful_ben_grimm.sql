@@ -1,0 +1,1 @@
+ALTER TABLE `raffle_prizes` MODIFY COLUMN `prize` varchar(256);

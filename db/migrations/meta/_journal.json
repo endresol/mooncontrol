@@ -57,6 +57,20 @@
       "when": 1717104332008,
       "tag": "0007_lowly_mindworm",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1719772663516,
+      "tag": "0008_mute_sabretooth",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1719773566184,
+      "tag": "0009_wakeful_ben_grimm",
+      "breakpoints": true
     }
   ]
 }
