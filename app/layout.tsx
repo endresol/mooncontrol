@@ -36,7 +36,7 @@ export default async function RootLayout({
         <Providers session={session}>
           <div
             className='flex flex-col h-screen text-white bg-no-repeat bg-cover my-background-div-id bg-scroll'
-            style={{ backgroundImage: `url("/mal-studio-bg-1.png")` }}
+            style={{ backgroundImage: `url("/thestudio-bg.png")` }}
           >
             <Navbar />
             <div className='flex flex-1'>
