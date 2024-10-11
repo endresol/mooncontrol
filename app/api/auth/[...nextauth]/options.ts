@@ -31,7 +31,8 @@ export const options: NextAuthOptions = {
             domain: nextAuthUrl.host,
             nonce: await getCsrfToken({ req: { headers: req.headers } }),
           });
-
+          console.log("siwe:", result);
+          
           if (result.success) {
             let userRole = "user";
 

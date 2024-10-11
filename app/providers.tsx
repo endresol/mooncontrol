@@ -13,7 +13,7 @@ import {
 import {
   getDefaultConfig,
   RainbowKitProvider,
-  midnightTheme,
+  lightTheme,
 } from "@rainbow-me/rainbowkit";
 
 const queryClient = new QueryClient();
@@ -42,7 +42,13 @@ export function Providers({
           <RainbowKitSiweNextAuthProvider
             getSiweMessageOptions={getSiweMessageOptions}
           >
-            <RainbowKitProvider theme={midnightTheme()}>
+            <RainbowKitProvider
+              theme={lightTheme({
+                accentColor: "#ffffff",
+                accentColorForeground: "#bcb49f",
+                borderRadius: "large",
+              })}
+            >
               {children}
             </RainbowKitProvider>
           </RainbowKitSiweNextAuthProvider>

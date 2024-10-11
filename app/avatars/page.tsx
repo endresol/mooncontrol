@@ -38,7 +38,7 @@ export default async function Avatars() {
     <>
       <h2 className='text-xl'> My 3D Avatars </h2>
       {myAvatars.length > 0 ? (
-        <AvatarGrid avatars={myAvatars} />
+        <AvatarGrid avatars={myAvatars} is3d={true}/>
       ) : (
         <div>You do not own any avatars yet.</div>
       )}

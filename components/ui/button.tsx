@@ -21,11 +21,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 justify-center",
         ghost: "hover:bg-accent hover:text-accent-foreground justify-center",
         link: "text-primary underline-offset-4 hover:underline justify-center",
+        mal: "bg-white text-bison-300 uppercase font-bold",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 px-3",
         lg: "h-11 px-8",
+        grand: "h-14 px-8 text-xl",
         icon: "h-10 w-10",
         full: "h-10 w-full",
       },

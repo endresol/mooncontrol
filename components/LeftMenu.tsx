@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
-import { FaHome, FaUser, FaCog } from "react-icons/fa";
+import { FaHome, FaUser, FaCog, FaBitcoin } from "react-icons/fa";
 import { GiMonkey } from "react-icons/gi";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -35,6 +35,12 @@ const menuLinks = [
     href: "/avatars",
     icon: <GiMonkey />,
     label: "3D Avatars",
+    login: true,
+  },
+  {
+    href: "/staking",
+    icon: <FaBitcoin />,
+    label: "Staking",
     login: true,
   },
   {
@@ -90,9 +96,9 @@ const LeftMenu: React.FC = () => {
                   xmlns='http://www.w3.org/2000/svg'
                 >
                   <path
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                    stroke-width='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='2'
                     d='M14 5l7 7m0 0l-7 7m7-7H3'
                   ></path>
                 </svg>
