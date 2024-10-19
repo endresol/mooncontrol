@@ -3,12 +3,13 @@ import {
   varchar,
   datetime,
   mysqlTable,
-  serial,
+  bigint,
 } from "drizzle-orm/mysql-core";
-import { relations } from "drizzle-orm";
 
 export const stakingRewards = mysqlTable("staking_rewards", {
-  rewardId: serial("reward_id").primaryKey(), // Auto-incremented ID
+  rewardId: bigint("reward_id", { mode: "number" })
+    .autoincrement()
+    .primaryKey(), // Auto-incremented ID
   address: varchar("address", { length: 255 }).notNull(),
   holdingMonth: varchar("holding_month", { length: 7 }).notNull(), // e.g., '2024-09'
   contractAReward: int("contract_a_reward").default(0), // Reward for Contract A
