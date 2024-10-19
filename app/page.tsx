@@ -7,7 +7,7 @@ export default function Home() {
 
       <div className="order-first pt-20">
         <Image
-          src="/3D-Logo-White-Crop.png"
+          src="/3d-Logo-White-Crop.png"
           alt="Moon Control"
           width={200}
           height={200}
