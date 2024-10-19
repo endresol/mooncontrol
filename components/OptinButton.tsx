@@ -32,7 +32,7 @@ type props = {
 
 export default function OptinButton(props: props) {
   console.log("inside wallet is ", props.wallet);
-  const [state, formAction] = useFormState(optinStaking, {});
+  const [state, formAction] = useFormState(optinStaking, true);
 
   return (
     <form action={formAction}>
