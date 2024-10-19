@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import localFont from "next/font/local";
-//import { Rubik_Mono_One } from "next/font/google";
 
 import { getServerSession } from "next-auth";
 import { Providers } from "./providers";
@@ -10,13 +9,8 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import LeftMenu from "@/components/LeftMenu";
 
-const myFont = localFont({ src: "../public/Swiss721Bold.ttf" });
-// const myfont = Rubik_Mono_One({
-//   weight: ["400"],
-//   subsets: ["latin"],
-// });
+const myFont = localFont({ src: "../public/Swiss721Black.ttf" });
 
 export const metadata: Metadata = {
   title: "The Studio",
@@ -35,13 +29,14 @@ export default async function RootLayout({
       <body className={`bg-none`}>
         <Providers session={session}>
           <div
-            className="flex flex-col h-screen text-white bg-no-repeat bg-cover bg-fixed my-background-div-id"
+            className="flex flex-col min-h-screen text-white bg-no-repeat bg-cover bg-fixed my-background-div-id background-fixed"
             style={{ backgroundImage: `url("/image-min.png")` }}
           >
             <Navbar />
-            <div className="flex flex-1 w-full">
+            {/* <div className="flex flex-1 w-full">
               <div className="flex-1 p-4">{children}</div>
-            </div>
+            </div> */}
+            {children}
             <Footer />
           </div>
         </Providers>

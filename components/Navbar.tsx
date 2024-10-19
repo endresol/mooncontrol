@@ -42,8 +42,10 @@ export default async function Navbar() {
   const session = await getServerSession(options);
 
   return (
-    <div className="flex items-center justify-center p-4">
-      {/* <div className='flex items-center'>
+    <header className="sticky top-0 z-50 h-32">
+      {/* <div className="headerbackground wave-layer-top inset-0 z-10 h-full"></div> */}
+      <div className=" relative flex items-center justify-center p-4 z-20">
+        {/* <div className='flex items-center'>
         <Image src='/3D_Logo_Final.png' alt='3D Logo' height={75} width={75} />
         <div className='text-2xl ml-2'>The Studio</div>
       </div>
@@ -58,20 +60,20 @@ export default async function Navbar() {
           />
         </div>
       </div> */}
-
-      <nav>
-        <ul className="flex space-x-4">
-          {menuLinks.map((link, index) => (
-            <li key={index}>
-              <Link href={link.href}>
-                <span className="inline-block px-4 py-2 bg-white text-bison-300 uppercase text-2xl font-bold rounded-full hover:bg-slate-200 transition-colors">
-                  {link.label}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
+        <nav>
+          <ul className="flex space-x-4 gap-6">
+            {menuLinks.map((link, index) => (
+              <li key={index}>
+                <Link href={link.href}>
+                  <span className="inline-block min-w-44 text-center py-3 bg-white text-bison-300 uppercase text-3xl font-bold rounded-3xl hover:bg-bison-200 hover:text-bison-500 transition-colors">
+                    {link.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 }

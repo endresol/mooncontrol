@@ -73,6 +73,19 @@
   body {
     @apply bg-background text-foreground;
   }
+  html, body {
+    height: 100%;
+  }
+  
+  #__next {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  main {
+    flex: 1 0 auto;
+  }
 }
 
 
@@ -86,30 +99,28 @@
 }
 
 .wave-layer {
+  height: 250px; /* Adjust the height as necessary */
+}
+
+.wave-layer-top {
   position: absolute;
   width: 100%;
-  height: 200px; /* Adjust the height as necessary */
+  height: 250px; /* Adjust the height as necessary */
 }
 
 .wave1 {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background: url('/wave1.svg');
   background-size: cover;
-  z-index: -3;
+  z-index: 1;
 }
 
 .wave2 {
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  background: url('/wave2.svg') repeat-x;
   background-size: cover;
-  z-index: -2;
+  z-index: 2;
 }
 
 .wave3 {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  background: url('/wave3.svg') repeat-x;
   background-size: cover;
-  z-index: -1;
+  z-index: 3;
 }
 
 [data-testid="rk-connect-button"] {
@@ -120,8 +131,42 @@
   width: 100% !important;
   height: 100% !important;
   padding: 0.5rem 1rem !important; 
-  
+  z-index: 10 !important;
+}
 
-  
+.footerbackground {
+  height: 270px; /* Adjust the height as necessary */
+
+  background-image: url("/waves-bottom.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  background-color: transparent;
+} 
+
+.headerbackground {
+  background-image: url("/waves-top.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  background-color: transparent;
+} 
+.staking-background {
+  background-color: pink;
+}
+
+.staking-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;  
+  height: 100%;
+  background-image: url("/Studio_14_1_optimized.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  z-index: 5;
 }
 
