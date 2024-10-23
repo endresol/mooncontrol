@@ -9,7 +9,7 @@ type proprtypes = {
 const Modal: React.FC<proprtypes> = ({ open, onClose, children }) => {
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center transition-colors ${
+      className={`fixed inset-0 flex justify-center items-center transition-colors ontop ${
         open ? "visible bg-black/20" : "invisible"
       }`}
       onClick={onClose}
@@ -20,7 +20,7 @@ const Modal: React.FC<proprtypes> = ({ open, onClose, children }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className='absolute top-2 right-2 py-1 px-2 text-gray-400 hover:text-gray-600 text-2xl'
+          className="absolute top-2 right-2 py-1 px-2 text-gray-400 hover:text-gray-600 text-2xl"
           onClick={onClose}
         >
           X

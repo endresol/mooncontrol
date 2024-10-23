@@ -15,13 +15,15 @@ interface AvatarCardProps {
   is3d: boolean;
 }
 
-const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars , is3d}) => {
+const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNFT, setSelectedNFT] = useState<number>(0);
 
   const openModal = (tokenid: number) => {
-    setSelectedNFT(tokenid);
-    setIsModalOpen(true);
+    if (is3d) {
+      setSelectedNFT(tokenid);
+      setIsModalOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -29,7 +31,7 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars , is3d}) => {
   };
 
   return (
-    <div className='grid xl:grid-cols-4 lg:grid-cols-3 gap-2 md:grid-cols-2' >
+    <div className="grid xl:grid-cols-4 lg:grid-cols-3 gap-2 md:grid-cols-2">
       {avatars?.map((avatar) => (
         <>
           <AvatarCard

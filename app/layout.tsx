@@ -36,7 +36,8 @@ export default async function RootLayout({
             {/* <div className="flex flex-1 w-full">
               <div className="flex-1 p-4">{children}</div>
             </div> */}
-            {children}
+            <div className="flex-1 p-4">{children}</div>
+
             <Footer />
           </div>
         </Providers>
