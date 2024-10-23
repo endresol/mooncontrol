@@ -1,0 +1,1 @@
+ALTER TABLE `nfts_apenft` ADD CONSTRAINT `nfts_apenft_nft_id_unique` UNIQUE(`nft_id`);
