@@ -16,8 +16,48 @@ interface AvatarCardProps {
 }
 
 const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
+  const itemsPerPage = 10; // Number of items per page
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedNFT, setSelectedNFT] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animationDirection, setAnimationDirection] = useState<"next" | "prev">(
+    "next"
+  );
+
+  // Calculate the start and end indices of items for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Get the current page's items
+  const currentItems = avatars.slice(startIndex, endIndex);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(avatars.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
+  const handlePageChange = (direction: "next" | "prev") => {
+    if (isAnimating) return; // Prevent triggering animation mid-transition
+    setIsAnimating(true);
+    setAnimationDirection(direction);
+
+    setTimeout(() => {
+      setIsAnimating(false);
+      setCurrentPage((prev) =>
+        direction === "next"
+          ? Math.min(prev + 1, totalPages)
+          : Math.max(prev - 1, 1)
+      );
+    }, 500); // Match the animation duration
+  };
 
   const openModal = (tokenid: number) => {
     if (is3d) {
@@ -31,23 +71,93 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
   };
 
   return (
-    <div className="grid xl:grid-cols-4 lg:grid-cols-3 gap-2 md:grid-cols-2">
-      {avatars?.map((avatar) => (
-        <>
-          <AvatarCard
-            key={avatar.id.toString()}
-            apeId={avatar.id.toString()}
-            onClick={() => openModal(avatar.id)}
-            is3d={is3d}
+    <div className="container mx-auto px-4 relative">
+      <div
+        className={`grid xl:grid-cols-5 lg:grid-cols-3 gap-2 grid-cols-2 transition-transform duration-500 ${
+          isAnimating
+            ? animationDirection === "next"
+              ? "-translate-x-full"
+              : "translate-x-full"
+            : "translate-x-0"
+        }`}
+      >
+        {currentItems.map((avatar) => (
+          <>
+            <AvatarCard
+              key={avatar.id.toString()}
+              apeId={avatar.id.toString()}
+              onClick={() => openModal(avatar.id)}
+              is3d={is3d}
+            />
+          </>
+        ))}
+
+        <AvatarModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          avatarId={selectedNFT}
+        />
+      </div>
+      <button
+        disabled={currentPage === 1 || isAnimating}
+        onClick={() => {
+          handlePageChange("prev");
+        }}
+        className={`absolute top-1/2 -left-24 transform -translate-y-1/2 w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-24 h-24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 19l-7-7 7-7"
           />
-          <AvatarModal
-            key={`m-${avatar.id.toString()}`}
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            avatarId={selectedNFT}
+          <path
+            d="M6 12 H18"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
           />
-        </>
-      ))}
+        </svg>
+      </button>
+
+      {/* Next Button */}
+      <button
+        disabled={currentPage === totalPages || isAnimating}
+        onClick={() => handlePageChange("next")}
+        className={`absolute top-1/2 -right-24 transform -translate-y-1/2 w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
+          currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-24 h-24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 5l7 7-7 7"
+          />
+          <path
+            d="M6 12 H18"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

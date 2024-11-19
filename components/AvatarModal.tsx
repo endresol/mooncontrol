@@ -21,13 +21,13 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
   return (
     <Modal open={isOpen} onClose={onRequestClose}>
       <div className="flex min-w-2xl z-50">
-        <div className="w-2/3 h-auto border-slate-500 border-2 rounded-md">
+        <div className="w-2/3 h-auto">
           <Image
             src={`https://storage.moonapelab.io/static/moonapes3d/images/${avatarId}.png`}
             alt={`3D Avatar #${avatarId}`}
             width={600}
             height={600}
-            className="h-auto rounded-md w-full"
+            className="h-auto rounded-2xl"
           />
         </div>
         <div className="w-1/3 p-4 flex flex-col justify-between">

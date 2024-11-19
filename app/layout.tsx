@@ -29,16 +29,9 @@ export default async function RootLayout({
     <html lang="en" className={`${myFont.className}`}>
       <body className={`bg-none`}>
         <Providers session={session}>
-          <div
-            className="flex flex-col min-h-screen text-white bg-no-repeat bg-cover bg-fixed my-background-div-id background-fixed"
-            style={{ backgroundImage: `url("/image-min.png")` }}
-          >
+          <div className="flex flex-col min-h-screen text-white">
             <Navbar />
-            {/* <div className="flex flex-1 w-full">
-              <div className="flex-1 p-4">{children}</div>
-            </div> */}
             <div className="flex-1 p-4">{children}</div>
-
             <Footer />
           </div>
         </Providers>

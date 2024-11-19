@@ -36,12 +36,13 @@ export default async function Genesis() {
 
   return (
     <>
-      <h2 className='text-xl'> My Genesis Apes </h2>
-      {myAvatars.length > 0 ? (
-        <AvatarGrid avatars={myAvatars} is3d={false}/>
-      ) : (
-        <div>You do not own any avatars yet.</div>
-      )}
+      <div className="w-full avatar-background">
+        {myAvatars.length > 0 ? (
+          <AvatarGrid avatars={myAvatars} is3d={false} />
+        ) : (
+          <div>You do not own any avatars yet.</div>
+        )}
+      </div>
     </>
   );
 }
