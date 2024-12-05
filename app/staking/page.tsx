@@ -1,5 +1,6 @@
 import React from "react";
 import OptinButton from "@/components/OptinButton";
+import ClaimButton from "@/components/ClaimButton";
 import {
   getClaimableRewards,
   getClaimedRewards,
@@ -51,7 +52,7 @@ export default async function Staking() {
                   </span>
                 )}
               </h2>
-              <p>Claim Now</p>
+              <ClaimButton wallet={wallet} />
             </div>
             <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[150px] flex flex-col justify-between">
               <h2 className="text-xl uppercase">

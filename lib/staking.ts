@@ -1,6 +1,7 @@
+"use server";
 import { db } from "../db";
 import { stakingRewards } from "../db/schema";
-import { and, ne, eq } from "drizzle-orm";
+import { and, ne, eq, lt, sql } from "drizzle-orm";
 import {
   nfts_apenft,
   avatar_owners,
@@ -227,4 +228,21 @@ export async function getClaimedRewards(address: string): Promise<Rewards[]> {
   });
 
   return result;
+}
+
+export async function claimReward(address: string) {
+  const today = new Date();
+
+  return db
+    .update(stakingRewards)
+    .set({
+      claimStatus: "claimed",
+    })
+    .where(
+      and(
+        eq(stakingRewards.address, address),
+        eq(stakingRewards.claimStatus, "unclaimed"),
+        lt(sql`${today}`, stakingRewards.claimExpiry)
+      )
+    );
 }
