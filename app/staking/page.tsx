@@ -1,6 +1,11 @@
 import React from "react";
 import OptinButton from "@/components/OptinButton";
-import { isStaker } from "@/lib/staking";
+import {
+  getClaimableRewards,
+  getClaimedRewards,
+  isStaker,
+  Rewards as Rewards,
+} from "@/lib/staking";
 
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
@@ -12,6 +17,9 @@ export default async function Staking() {
   console.log("this wallet", wallet);
   const staker = await isStaker(wallet ?? "");
   console.log("staker: ", staker);
+
+  const rewards: Rewards[] = await getClaimableRewards(wallet ?? "");
+  const claimed: Rewards[] = await getClaimedRewards(wallet ?? "");
 
   return (
     <>
@@ -35,9 +43,15 @@ export default async function Staking() {
             <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg  min-h-[150px] flex flex-col justify-between">
               <h2 className="text-xl uppercase">
                 Step 2<br />
-                Current earnings
+                Unclaimed Ernings
+                <br />
+                {rewards.length > 0 && (
+                  <span className="text-3xl font-bold">
+                    {(rewards[0].total / 100).toFixed(2)}
+                  </span>
+                )}
               </h2>
-              <p>Coming soon</p>
+              <p>Claim Now</p>
             </div>
             <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[150px] flex flex-col justify-between">
               <h2 className="text-xl uppercase">
@@ -45,7 +59,13 @@ export default async function Staking() {
                 <br />
                 Claimed earnings
               </h2>
-              <p>Coming soon</p>
+              {claimed.length > 0 ? (
+                <span className="text-3xl font-bold">
+                  {(claimed[0].total / 100).toFixed(2)}
+                </span>
+              ) : (
+                <p>No claimed rewards</p>
+              )}
             </div>
           </div>
         </div>

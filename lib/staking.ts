@@ -1,22 +1,32 @@
-import { db } from "@/db";
-import { eq } from "drizzle-orm";
-
+import { db } from "../db";
+import { stakingRewards } from "../db/schema";
+import { and, ne, eq } from "drizzle-orm";
 import {
   nfts_apenft,
   avatar_owners,
   stakingUsers,
   stakingHoldings,
-} from "@/db/schema";
+} from "../db/schema";
 
 import { createPublicClient, getContract, http, Address } from "viem";
 import { mainnet } from "viem/chains";
-import { mutantABI } from "@/abis/mutant";
+import { mutantABI } from "../abis/mutant";
 
 const mutantAddress = process.env.NEXT_PUBLIC_MUTANT_CONTRACT as Address;
 const genesisAddress = process.env.NEXT_PUBLIC_GENESIS_CONTRACT as Address;
 const avatarAddress = process.env.NEXT_PUBLIC_AVATAR_CONTRACT as Address;
 
 export type NewUser = typeof stakingUsers.$inferInsert;
+
+export type Rewards = {
+  address: string;
+  avatar: number;
+  mutant: number;
+  genesis: number;
+  matchbonus: number;
+  total: number;
+  status: string;
+};
 
 export async function insertUser(user: NewUser) {
   console.log("insertUser", user);
@@ -53,7 +63,20 @@ export async function isStaker(address: string) {
     return false;
   }
 }
+function holdingMonth(date: Date) {
+  // Create new date to avoid modifying original
+  const prevMonth = new Date(date);
+  // Set to previous month
+  prevMonth.setMonth(prevMonth.getMonth() - 1);
 
+  // Get year and month (adding 1 since getMonth() returns 0-11)
+  const year = prevMonth.getFullYear();
+  // Pad month with leading zero if needed
+  const month = String(prevMonth.getMonth() + 1).padStart(2, "0");
+
+  // Return in format YYYY-MM
+  return `${year}-${month}`;
+}
 export async function snapshotWallet(address: string) {
   console.log("snapshotWallet", address);
 
@@ -76,7 +99,7 @@ export async function snapshotWallet(address: string) {
       contract: genesisAddress,
       tokenId: element.nft_id,
       snapshotDate: new Date(),
-      holdingMonth: "2024-09",
+      holdingMonth: holdingMonth(new Date()),
     });
   });
 
@@ -93,7 +116,7 @@ export async function snapshotWallet(address: string) {
       contract: avatarAddress,
       tokenId: element.id,
       snapshotDate: new Date(),
-      holdingMonth: "2024-09",
+      holdingMonth: holdingMonth(new Date()),
     });
   });
 
@@ -105,7 +128,7 @@ export async function snapshotWallet(address: string) {
       contract: mutantAddress,
       tokenId: element,
       snapshotDate: new Date(),
-      holdingMonth: "2024-09",
+      holdingMonth: holdingMonth(new Date()),
     });
   });
 
@@ -137,4 +160,71 @@ async function getMutants(address: string) {
   console.log("owned mutants", mutants);
 
   return mutants;
+}
+
+export async function getUnclaimedRewards(address: string) {
+  const rewards = await db
+    .select()
+    .from(stakingRewards)
+    .where(
+      and(
+        eq(stakingRewards.address, address),
+        ne(stakingRewards.claimStatus, "claimed")
+      )
+    );
+
+  return rewards;
+}
+
+export async function getAllClaimedRewards(address: string) {
+  const rewards = await db
+    .select()
+    .from(stakingRewards)
+    .where(
+      and(
+        eq(stakingRewards.address, address),
+        eq(stakingRewards.claimStatus, "claimed")
+      )
+    );
+
+  return rewards;
+}
+
+export async function getClaimableRewards(address: string): Promise<Rewards[]> {
+  const result: Rewards[] = [];
+  const rewards = await getUnclaimedRewards(address);
+
+  rewards.forEach((reward) => {
+    const claimableReward = {
+      address: address,
+      avatar: reward.contractAReward || 0,
+      mutant: reward.contractCReward || 0,
+      genesis: reward.contractBReward || 0,
+      matchbonus: reward.sameIdBonus || 0,
+      total: reward.totalReward || 0,
+      status: reward.claimStatus || "unclaimed",
+    };
+    result.push(claimableReward);
+  });
+
+  return result;
+}
+export async function getClaimedRewards(address: string): Promise<Rewards[]> {
+  const result: Rewards[] = [];
+  const rewards = await getAllClaimedRewards(address);
+
+  rewards.forEach((reward) => {
+    const claimedReward = {
+      address: address,
+      avatar: reward.contractAReward || 0,
+      mutant: reward.contractCReward || 0,
+      genesis: reward.contractBReward || 0,
+      matchbonus: reward.sameIdBonus || 0,
+      total: reward.totalReward || 0,
+      status: reward.claimStatus || "unclaimed",
+    };
+    result.push(claimedReward);
+  });
+
+  return result;
 }

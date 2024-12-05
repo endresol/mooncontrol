@@ -13,7 +13,9 @@
     "db:up": "drizzle-kit up:mysql",
     "db:deploy": "dotenv -e .env.local -o -- ts-node --files db/migrator.ts",
     "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/update_avatar_owners.ts",
-    "script:genesis": "dotenv -e .env.local -o -- ts-node --files scripts/update_ape_owners.ts"
+    "script:genesis": "dotenv -e .env.local -o -- ts-node --files scripts/update_ape_owners.ts",
+    "script:staking": "dotenv -e .env.local -o -- ts-node --files scripts/update_user_staking_snapshot.ts",
+    "script:reward": "dotenv -e .env.local -o -- ts-node --files scripts/calculate_rewards.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
