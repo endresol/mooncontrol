@@ -44,7 +44,7 @@ export default async function Staking() {
             <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg  min-h-[150px] flex flex-col justify-between">
               <h2 className="text-xl uppercase">
                 Step 2<br />
-                Unclaimed Ernings
+                Unclaimed Earnings
                 <br />
                 {rewards.length > 0 && (
                   <span className="text-3xl font-bold">
