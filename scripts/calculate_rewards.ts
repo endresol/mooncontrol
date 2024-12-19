@@ -211,17 +211,29 @@ const insertRewardSummary = async (
     totalReward += summary.totalReward;
   });
 
-  await db.insert(stakingRewards).values({
-    address: address,
-    holdingMonth: toMonth,
-    contractAReward: contractAReward,
-    contractBReward: contractBReward,
-    contractCReward: contractCReward,
-    sameIdBonus: sameIdBonus,
-    totalReward: totalReward,
-    claimStatus: "unclaimed",
-    claimExpiry: claimExpiry,
-  });
+  // update the insert statement to update already existing records
+  await db
+    .insert(stakingRewards)
+    .values({
+      address: address,
+      holdingMonth: toMonth,
+      contractAReward: contractAReward,
+      contractBReward: contractBReward,
+      contractCReward: contractCReward,
+      sameIdBonus: sameIdBonus,
+      totalReward: totalReward,
+      claimStatus: "unclaimed",
+      claimExpiry: claimExpiry,
+    })
+    .onDuplicateKeyUpdate({
+      set: {
+        contractAReward: contractAReward,
+        contractBReward: contractBReward,
+        contractCReward: contractCReward,
+        sameIdBonus: sameIdBonus,
+        totalReward: totalReward,
+      },
+    });
 };
 
 const main = async () => {

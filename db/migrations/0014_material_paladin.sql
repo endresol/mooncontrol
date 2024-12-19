@@ -1,0 +1,2 @@
+ALTER TABLE `staking_rewards` ADD CONSTRAINT `staking_rewards_address_holding_month_unique` UNIQUE(`address`,`holding_month`);--> statement-breakpoint
+CREATE INDEX `unique_holding_idx` ON `staking_holdings` (`address`,`contract`,`token_id`,`holding_month`);

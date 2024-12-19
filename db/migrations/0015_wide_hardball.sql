@@ -1,0 +1,1 @@
+ALTER TABLE `staking_holdings` MODIFY COLUMN `holding_id` int AUTO_INCREMENT NOT NULL;

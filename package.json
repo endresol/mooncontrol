@@ -11,6 +11,7 @@
     "lint": "next lint",
     "db:generate": "drizzle-kit generate:mysql",
     "db:up": "drizzle-kit up:mysql",
+    "db:rollback": "drizzle-kit migrate --rollback",
     "db:deploy": "dotenv -e .env.local -o -- ts-node --files db/migrator.ts",
     "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/update_avatar_owners.ts",
     "script:genesis": "dotenv -e .env.local -o -- ts-node --files scripts/update_ape_owners.ts",
