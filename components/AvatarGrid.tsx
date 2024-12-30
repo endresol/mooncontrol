@@ -4,10 +4,14 @@ import React, { useState } from "react";
 
 import AvatarCard from "./AvatarCard";
 import AvatarModal from "./AvatarModal";
+import { addHolding } from "@/app/staking/server_actions";
 
 type avatar = {
   id: number;
-  address: string | null;
+  address: string;
+  isStaked: boolean;
+  stakedAt: Date | null;
+  contract: string;
 };
 
 interface AvatarCardProps {
@@ -70,6 +74,22 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
     setIsModalOpen(false);
   };
 
+  const StakeClick = async (
+    tokenId: number,
+    address: string,
+    contract: string
+  ) => {
+    console.log("StakeClick", tokenId, address);
+
+    try {
+      await addHolding(tokenId, address, contract);
+      // Optionally refresh the avatars list or update UI
+    } catch (error) {
+      console.error("Error staking token:", error);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 relative">
       <div
@@ -88,6 +108,11 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
               apeId={avatar.id.toString()}
               onClick={() => openModal(avatar.id)}
               is3d={is3d}
+              isStaked={avatar.isStaked}
+              stakedAt={avatar.stakedAt}
+              StakeClick={() =>
+                StakeClick(avatar.id, avatar.address, avatar.contract)
+              }
             />
           </>
         ))}

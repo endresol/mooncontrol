@@ -18,6 +18,7 @@ const genesisAddress = process.env.NEXT_PUBLIC_GENESIS_CONTRACT as Address;
 const avatarAddress = process.env.NEXT_PUBLIC_AVATAR_CONTRACT as Address;
 
 export type NewUser = typeof stakingUsers.$inferInsert;
+export type NewHolding = typeof stakingHoldings.$inferInsert;
 
 export type Rewards = {
   address: string;
@@ -27,6 +28,7 @@ export type Rewards = {
   matchbonus: number;
   total: number;
   status: string;
+  holdingMonth: string;
 };
 
 export async function insertUser(user: NewUser) {
@@ -48,6 +50,13 @@ export async function insertUser(user: NewUser) {
   }
 }
 
+export async function stakeNFT(holding: NewHolding) {
+  console.log("stakeNFT", holding);
+
+  const result = await db.insert(stakingHoldings).values(holding);
+  return result;
+}
+
 export async function isStaker(address: string) {
   console.log("address:", address);
 
@@ -64,6 +73,7 @@ export async function isStaker(address: string) {
     return false;
   }
 }
+
 function holdingMonth(date: Date) {
   // Create new date to avoid modifying original
   const prevMonth = new Date(date);
@@ -78,6 +88,7 @@ function holdingMonth(date: Date) {
   // Return in format YYYY-MM
   return `${year}-${month}`;
 }
+
 export async function snapshotWallet(address: string) {
   console.log("snapshotWallet", address);
 
@@ -204,6 +215,7 @@ export async function getClaimableRewards(address: string): Promise<Rewards[]> {
       matchbonus: reward.sameIdBonus || 0,
       total: reward.totalReward || 0,
       status: reward.claimStatus || "unclaimed",
+      holdingMonth: reward.holdingMonth,
     };
     result.push(claimableReward);
   });
@@ -223,6 +235,7 @@ export async function getClaimedRewards(address: string): Promise<Rewards[]> {
       matchbonus: reward.sameIdBonus || 0,
       total: reward.totalReward || 0,
       status: reward.claimStatus || "unclaimed",
+      holdingMonth: reward.holdingMonth,
     };
     result.push(claimedReward);
   });

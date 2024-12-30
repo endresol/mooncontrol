@@ -25,8 +25,8 @@ export default async function Staking() {
   return (
     <>
       <div className="w-full staking-background">
-        <div className="grid grid-cols-12 gap-4 relative z-10 place-items-end h-[20rem]">
-          <div className="col-start-2 col-end-5">
+        <div className="flex flex-col relative z-10 items-center justify-center gap-8 min-w-[1100px]">
+          <div className="min-w-[1100px]">
             <div className="card p-4 bg-white text-bison-500 shadow-sm rounded-lg">
               <h2 className="text-xl uppercase">Step 1 - Opt-in</h2>
               {!staker ? (
@@ -40,29 +40,29 @@ export default async function Staking() {
               )}
             </div>
           </div>
-          <div className="grid grid-row-2 gap-4 text-center col-start-9 col-end-12">
-            <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg  min-h-[150px] flex flex-col justify-between">
-              <h2 className="text-xl uppercase">
-                Step 2<br />
-                Unclaimed Earnings
-                <br />
-                {rewards.length > 0 && (
-                  <span className="text-3xl font-bold">
+          <div className="min-w-[1100px]">
+            <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[100px]">
+              <h2 className="text-xl uppercase">Step 2 - Unclaimed Earnings</h2>
+
+              {rewards.length > 0 ? (
+                <div>
+                  <span className="">
                     {(rewards[0].total / 100).toFixed(2)}
                   </span>
-                )}
-              </h2>
-              <ClaimButton wallet={wallet} />
+                  <ClaimButton wallet={wallet} />
+                </div>
+              ) : (
+                <span>No unclaimed rewards</span>
+              )}
             </div>
-            <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[150px] flex flex-col justify-between">
-              <h2 className="text-xl uppercase">
-                Step 3
-                <br />
-                Claimed earnings
-              </h2>
+          </div>
+          <div className="min-w-[1100px]">
+            <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[100px]">
+              <h2 className="text-xl uppercase">Step 3 - Claimed earnings</h2>
               {claimed.length > 0 ? (
-                <span className="text-3xl font-bold">
-                  {(claimed[0].total / 100).toFixed(2)}
+                <span className="">
+                  Period: {claimed[0].holdingMonth} -{" "}
+                  {(claimed[0].total / 100).toFixed(2)} $MAD
                 </span>
               ) : (
                 <p>No claimed rewards</p>
