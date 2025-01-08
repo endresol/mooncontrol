@@ -10,15 +10,15 @@ import { useFormState } from "react-dom";
 
 const initialState = {
   result: false,
+  size: "large",
 };
 
-function ClaimButton() {
+function SubmitButton() {
   const { pending } = useFormStatus();
-
   return (
     <button
       type="submit"
-      className="uppercase text-2xl border-2 border-bison-200 text-bison-300 rounded-xl py-2 px-4 hover:bg-bison-200 hover:text-bison-500"
+      className="uppercase text-s border-2 border-bison-200 text-bison-300 rounded-xl py-1 px-2 hover:bg-bison-200 hover:text-bison-500"
       aria-disabled={pending}
     >
       Claim
@@ -28,16 +28,17 @@ function ClaimButton() {
 
 type props = {
   wallet: string | undefined | null;
+  size?: "small" | "medium" | "large";
 };
 
-export default function OptinButton(props: props) {
+export default function ClaimButton(props: props) {
   console.log("inside wallet is ", props.wallet);
   const [state, formAction] = useFormState(claimStakingReward, true);
 
   return (
     <form action={formAction}>
       <input type="hidden" name="wallet" value={props.wallet ?? ""} />
-      <ClaimButton />
+      <SubmitButton />
     </form>
   );
 }

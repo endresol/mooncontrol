@@ -45,11 +45,33 @@ export default async function Staking() {
               <h2 className="text-xl uppercase">Step 2 - Unclaimed Earnings</h2>
 
               {rewards.length > 0 ? (
-                <div>
-                  <span className="">
-                    {(rewards[0].total / 100).toFixed(2)}
-                  </span>
-                  <ClaimButton wallet={wallet} />
+                <div className="grid grid-rows-1 gap-2">
+                  {rewards.map((reward, index) => (
+                    <div className="grid grid-cols-7" key={index}>
+                      <span className="">Period: {reward.holdingMonth}: </span>
+                      <span className="">
+                        2Ds: {(reward.genesis / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        3Ds: {(reward.avatar / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        Pairs: {(reward.matchbonus / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        Mutants: {(reward.mutant / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        {(reward.total / 100).toFixed(2)}
+                      </span>
+
+                      {new Date(reward.expiry) > new Date() ? (
+                        <ClaimButton size={"small"} wallet={wallet} />
+                      ) : (
+                        <span>Expired</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
               ) : (
                 <span>No unclaimed rewards</span>
@@ -60,10 +82,68 @@ export default async function Staking() {
             <div className="card px-4 py-6 bg-white text-bison-500 shadow-sm rounded-lg min-h-[100px]">
               <h2 className="text-xl uppercase">Step 3 - Claimed earnings</h2>
               {claimed.length > 0 ? (
-                <span className="">
-                  Period: {claimed[0].holdingMonth} -{" "}
-                  {(claimed[0].total / 100).toFixed(2)} $MAD
-                </span>
+                <div className="grid grid-rows-1">
+                  {claimed.map((claim, index) => (
+                    <div className="grid grid-cols-6" key={index}>
+                      <span className="">Period: {claim.holdingMonth}: </span>
+                      <span className="">
+                        2Ds: {(claim.genesis / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        3Ds: {(claim.avatar / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        Pairs: {(claim.matchbonus / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        Mutants: {(claim.mutant / 100).toFixed(2)}
+                      </span>
+                      <span className="">
+                        Total $MAD: {(claim.total / 100).toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="grid grid-cols-6   justify-between w-full font-bold">
+                    <span>Total Claimed:</span>
+                    <span>
+                      2Ds:{" "}
+                      {(
+                        claimed.reduce((acc, claim) => acc + claim.genesis, 0) /
+                        100
+                      ).toFixed(2)}
+                    </span>
+                    <span>
+                      3Ds:{" "}
+                      {(
+                        claimed.reduce((acc, claim) => acc + claim.avatar, 0) /
+                        100
+                      ).toFixed(2)}
+                    </span>
+                    <span>
+                      Pairs:{" "}
+                      {(
+                        claimed.reduce(
+                          (acc, claim) => acc + claim.matchbonus,
+                          0
+                        ) / 100
+                      ).toFixed(2)}
+                    </span>
+                    <span>
+                      Mutants:{" "}
+                      {(
+                        claimed.reduce((acc, claim) => acc + claim.mutant, 0) /
+                        100
+                      ).toFixed(2)}
+                    </span>
+                    <span>
+                      Total $MAD:{" "}
+                      {(
+                        claimed.reduce((acc, claim) => acc + claim.total, 0) /
+                        100
+                      ).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
               ) : (
                 <p>No claimed rewards</p>
               )}

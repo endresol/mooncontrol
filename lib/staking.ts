@@ -12,6 +12,7 @@ import {
 import { createPublicClient, getContract, http, Address } from "viem";
 import { mainnet } from "viem/chains";
 import { mutantABI } from "../abis/mutant";
+import exp from "constants";
 
 const mutantAddress = process.env.NEXT_PUBLIC_MUTANT_CONTRACT as Address;
 const genesisAddress = process.env.NEXT_PUBLIC_GENESIS_CONTRACT as Address;
@@ -29,23 +30,30 @@ export type Rewards = {
   total: number;
   status: string;
   holdingMonth: string;
+  expiry: Date;
 };
 
 export async function insertUser(user: NewUser) {
   console.log("insertUser", user);
-  const result = await db.insert(stakingUsers).values(user);
-  console.log("insertUser result", result);
+  const check = await db
+    .select()
+    .from(stakingUsers)
+    .where(eq(stakingUsers.address, user.address));
+  if (check.length <= 0) {
+    const result = await db.insert(stakingUsers).values(user);
+    console.log("insertUser result", result);
 
-  if (result[0].insertId) {
-    if (user.address) {
-      const makeSnapshot = await snapshotWallet(user.address);
+    if (result[0].insertId) {
+      if (user.address) {
+        const makeSnapshot = await snapshotWallet(user.address);
 
-      const insertSnapshot = await db.insert(stakingHoldings).values(
-        makeSnapshot.map((snapshot) => ({
-          ...snapshot,
-          tokenId: snapshot.tokenId.toString(),
-        }))
-      );
+        const insertSnapshot = await db.insert(stakingHoldings).values(
+          makeSnapshot.map((snapshot) => ({
+            ...snapshot,
+            tokenId: snapshot.tokenId.toString(),
+          }))
+        );
+      }
     }
   }
 }
@@ -216,6 +224,7 @@ export async function getClaimableRewards(address: string): Promise<Rewards[]> {
       total: reward.totalReward || 0,
       status: reward.claimStatus || "unclaimed",
       holdingMonth: reward.holdingMonth,
+      expiry: reward.claimExpiry,
     };
     result.push(claimableReward);
   });
@@ -236,6 +245,7 @@ export async function getClaimedRewards(address: string): Promise<Rewards[]> {
       total: reward.totalReward || 0,
       status: reward.claimStatus || "unclaimed",
       holdingMonth: reward.holdingMonth,
+      expiry: reward.claimExpiry,
     };
     result.push(claimedReward);
   });
