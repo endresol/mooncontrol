@@ -26,15 +26,15 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
 
   return (
     <div
-      className="relative bg-white shadow-lg overflow-hidden m-4 border-white border-8 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105"
+      className="relative bg-white shadow-lg overflow-hidden m-4 border-white border-8 rounded-2xl cursor-pointer transition-all duration-300 hover:scale-105 max-w-72"
       onClick={onClick}
     >
       <div className="absolute top-2 right-2 z-5">
         {isStaked ? (
           <div className="group relative">
             <CheckCircle className="w-6 h-6 text-green-500" />
-            <span className="absolute -top-8 right-0 hidden group-hover:block bg-black text-white text-xs p-1 rounded whitespace-nowrap">
-              Staked: {stakedAt?.toString()}
+            <span className="absolute right-8 top-0.5 hidden group-hover:block bg-black text-white text-xs p-1 rounded whitespace-nowrap">
+              Staked: {stakedAt?.toString().slice(0, 10)}
             </span>
           </div>
         ) : (
@@ -50,7 +50,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
         )}
       </div>
       <Image
-        className="object-cover w-full h-44 rounded-xl"
+        className="object-cover w-full aspect-square rounded-xl"
         src={`${filepath}/${apeId}.png`}
         alt={`Moon Ape Lab ${is3d ? " 3D" : " Genesis"} Avatar`}
         width={400}

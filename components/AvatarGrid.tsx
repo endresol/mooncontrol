@@ -91,9 +91,78 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
   };
 
   return (
-    <div className="container mx-auto px-4 relative">
+    <div className="container mx-auto">
+      <div className="flex justify-between items-center">
+        {/* Prev Button */}
+        <div>
+          <button
+            disabled={currentPage === 1 || isAnimating}
+            onClick={() => {
+              handlePageChange("prev");
+            }}
+            className={`w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
+              currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-24 h-24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 19l-7-7 7-7"
+              />
+              <path
+                d="M6 12 H18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="text-center text-bison-600 text-xl align-bottom">
+          Total NFTs: {avatars.length}
+        </div>
+        {/* Next Button */}
+        <div>
+          <button
+            disabled={currentPage === totalPages || isAnimating}
+            onClick={() => handlePageChange("next")}
+            className={`w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
+              currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-24 h-24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 5l7 7-7 7"
+              />
+              <path
+                d="M6 12 H18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div
-        className={`grid xl:grid-cols-5 lg:grid-cols-3 gap-2 grid-cols-2 transition-transform duration-500 ${
+        className={`grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 gap-2 grid-cols-2 transition-transform duration-500 ${
           isAnimating
             ? animationDirection === "next"
               ? "-translate-x-full"
@@ -123,66 +192,6 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
           avatarId={selectedNFT}
         />
       </div>
-      <button
-        disabled={currentPage === 1 || isAnimating}
-        onClick={() => {
-          handlePageChange("prev");
-        }}
-        className={`absolute top-1/2 -left-24 transform -translate-y-1/2 w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
-          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-24 h-24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 19l-7-7 7-7"
-          />
-          <path
-            d="M6 12 H18"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
-
-      {/* Next Button */}
-      <button
-        disabled={currentPage === totalPages || isAnimating}
-        onClick={() => handlePageChange("next")}
-        className={`absolute top-1/2 -right-24 transform -translate-y-1/2 w-24 h-24 flex items-center justify-center bg-white text-bison-300 rounded-full shadow-lg hover:text-bison-600 focus:outline-none focus:ring-2 focus:ring-bison-300 ${
-          currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          className="w-24 h-24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 5l7 7-7 7"
-          />
-          <path
-            d="M6 12 H18"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
     </div>
   );
 };
