@@ -1,6 +1,8 @@
 import React from "react";
 import OptinButton from "@/components/OptinButton";
 import ClaimButton from "@/components/ClaimButton";
+import ButtonInfo from "@/components/ButtonInfo";
+
 import {
   getClaimableRewards,
   getClaimedRewards,
@@ -27,17 +29,20 @@ export default async function Staking() {
       <div className="w-full staking-background">
         <div className="flex flex-col relative z-10 items-center justify-center gap-8 min-w-[1100px]">
           <div className="min-w-[1100px]">
-            <div className="card p-4 bg-white text-bison-500 shadow-sm rounded-lg">
-              <h2 className="text-xl uppercase">Step 1 - Opt-in</h2>
-              {!staker ? (
-                <>
-                  <div className="text-center pt-4">
-                    <OptinButton wallet={wallet} />
-                  </div>
-                </>
-              ) : (
-                <p>Congratulations - you’re all set!</p>
-              )}
+            <div className="card p-4 bg-white text-bison-500 shadow-sm rounded-lg flex justify-between items-center">
+              <div>
+                <h2 className="text-xl uppercase">Step 1 - Opt-in</h2>
+                {!staker ? (
+                  <>
+                    <div className="text-center pt-4">
+                      <OptinButton wallet={wallet} />
+                    </div>
+                  </>
+                ) : (
+                  <p>Congratulations - you’re all set!</p>
+                )}
+              </div>
+              <ButtonInfo />
             </div>
           </div>
           <div className="min-w-[1100px]">
