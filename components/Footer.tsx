@@ -9,7 +9,7 @@ export default async function Footer() {
   const waves = "/waves-bottom.png";
 
   return (
-    <footer className="mt-auto z-50">
+    <footer className="mt-auto z-30">
       <div className="footer-content text-white p-6 flex justify-between items-center ">
         {!session ? (
           <ConnectButton label="Login" showBalance={false} />

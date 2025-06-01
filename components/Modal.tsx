@@ -9,7 +9,7 @@ type proprtypes = {
 const Modal: React.FC<proprtypes> = ({ open, onClose, children }) => {
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center transition-colors bg-bison-500/20 ${
+      className={`fixed inset-0 flex justify-center items-center transition-colors bg-bison-500/20 z-[100] ${
         open ? " visible " : "invisible"
       }`}
       onClick={onClose}
