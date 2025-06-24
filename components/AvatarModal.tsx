@@ -35,8 +35,18 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
             <h2 className="text-3xl">Moon Ape 3D Avatar</h2>
             <div className="text-4xl">#{avatarId}</div>
           </div>
-          <div>
-            <div>Download 3D Avatar Blender file</div>
+          <div className="flex flex-col gap-4">
+            <div>Downloads: </div>
+            <Link
+              className={`text-xl gap-4 ${buttonVariants({
+                variant: "outline",
+                size: "lg",
+              })}`}
+              href={`/api/download/LAB`}
+            >
+              MAL LAB file
+              <FiDownload size={24} />
+            </Link>
             <Link
               className={`text-xl gap-4 ${buttonVariants({
                 variant: "outline",
@@ -44,7 +54,7 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
               })}`}
               href={`/api/download/${avatarId}`}
             >
-              Download
+              3D Blender file
               <FiDownload size={24} />
             </Link>
           </div>

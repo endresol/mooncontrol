@@ -33,7 +33,29 @@ export async function GET(req: Request, { params }: GetParams) {
   });
 
   if (session) {
-    const filename = params.filename;
+    const { filename } = params;
+    console.log("filename", filename);
+
+    if (filename === "LAB") {
+      // Handle the special case for LAB file
+      const labFilePath = path.resolve(
+        `${avatarFolder}/moonLabBuild For The Apes.blend`
+      );
+      console.log("LAB file path", labFilePath);
+
+      if (fs.existsSync(labFilePath)) {
+        const labBuffer = fs.readFileSync(labFilePath);
+        return new Response(labBuffer, {
+          headers: {
+            "Content-Type": "application/octet-stream",
+            "content-disposition": `attachment; filename="LAB.blend"`,
+          },
+        });
+      } else {
+        return new Response("LAB file not found", { status: 404 });
+      }
+    }
+
     console.log("Session!", JSON.stringify(session, null, 2));
     const minted = await contract.read.isTokenMinted([filename]);
     console.log("minted:", minted);
