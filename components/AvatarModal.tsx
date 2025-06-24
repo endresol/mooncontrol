@@ -44,7 +44,7 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
               })}`}
               href={`/api/download/LAB`}
             >
-              MAL LAB file
+              MAL LAB file (500mb)
               <FiDownload size={24} />
             </Link>
             <Link
