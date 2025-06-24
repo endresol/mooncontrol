@@ -37,6 +37,7 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
           </div>
           <div className="flex flex-col gap-4">
             <div>Downloads: </div>
+            <p className="text-xs">The MoonApeLab file is over 500Mb</p>
             <Link
               className={`text-xl gap-4 ${buttonVariants({
                 variant: "outline",
@@ -44,9 +45,10 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
               })}`}
               href={`/api/download/LAB`}
             >
-              MAL LAB file (500mb)
+              MAL LAB file
               <FiDownload size={24} />
             </Link>
+
             <Link
               className={`text-xl gap-4 ${buttonVariants({
                 variant: "outline",
