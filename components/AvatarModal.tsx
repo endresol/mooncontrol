@@ -30,7 +30,7 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
             className="h-auto rounded-2xl"
           />
         </div>
-        <div className="w-1/3 p-4 flex flex-col justify-between">
+        <div className="w-1/3 p-4 flex flex-col justify-between text-center">
           <div>
             <h2 className="text-3xl">Moon Ape 3D Avatar</h2>
             <div className="text-4xl">#{avatarId}</div>
@@ -58,6 +58,12 @@ const AvatarModal: React.FC<AvatarModalProps> = ({
             >
               3D Blender file
               <FiDownload size={24} />
+            </Link>
+            <Link
+              className="text-sm hover:underline"
+              href="/Moon Ape Lab IP Licensing Agreement.pdf"
+            >
+              License agreement
             </Link>
           </div>
         </div>
