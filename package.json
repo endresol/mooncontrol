@@ -16,6 +16,7 @@
     "script:owner": "dotenv -e .env.local -o -- ts-node --files scripts/update_avatar_owners.ts",
     "script:genesis": "dotenv -e .env.local -o -- ts-node --files scripts/update_ape_owners.ts",
     "script:staking": "dotenv -e .env.local -o -- ts-node --files scripts/update_user_staking_snapshot.ts",
+    "script:singlestaking": "dotenv -e .env.local -o -- ts-node --files scripts/update_staking_snapshot_for_user.ts",
     "script:reward": "dotenv -e .env.local -o -- ts-node --files scripts/calculate_rewards.ts",
     "script:singlereward": "dotenv -e .env.local -o -- ts-node --files scripts/calculate_rewards_address.ts"
   },
