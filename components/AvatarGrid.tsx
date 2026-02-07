@@ -17,9 +17,10 @@ type avatar = {
 interface AvatarCardProps {
   avatars: avatar[];
   is3d: boolean;
+  name: string;
 }
 
-const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
+const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d, name }) => {
   const itemsPerPage = 10; // Number of items per page
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -127,7 +128,7 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
           </button>
         </div>
         <div className="text-center text-bison-600 text-xl align-bottom">
-          Total NFTs: {avatars.length}
+          Total {name} NFTs: {avatars.length}
         </div>
         {/* Next Button */}
         <div>
@@ -186,12 +187,14 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d }) => {
           </>
         ))}
 
+      </div>
+      {isModalOpen && selectedNFT > 0 && (
         <AvatarModal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           avatarId={selectedNFT}
         />
-      </div>
+      )}
     </div>
   );
 };
