@@ -8,11 +8,6 @@ import { claimStakingReward } from "@/app/staking/server_actions";
 import { useFormStatus } from "react-dom";
 import { useFormState } from "react-dom";
 
-const initialState = {
-  result: false,
-  size: "large",
-};
-
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -32,8 +27,7 @@ type props = {
 };
 
 export default function ClaimButton(props: props) {
-  console.log("inside wallet is ", props.wallet);
-  const [state, formAction] = useFormState(claimStakingReward, true);
+  const [state, formAction] = useFormState(claimStakingReward, { success: true });
 
   return (
     <form action={formAction}>

@@ -2,11 +2,11 @@
 
 import {
   insertUser,
-  NewUser,
   claimReward,
   stakeNFT,
   NewHolding,
 } from "@/lib/staking";
+import { holdingMonth } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { options } from "../api/auth/[...nextauth]/options";
 import { revalidatePath } from "next/cache";
@@ -15,20 +15,15 @@ export async function optinStaking() {
   const session = await getServerSession(options);
   const wallet = session?.user?.name;
 
-  console.log("inside server", wallet);
-  if (!wallet) return false;
-
-  const data = {
-    address: wallet,
-  };
+  if (!wallet) return { success: false, error: "Not authenticated" };
 
   try {
-    const ret = await insertUser(data);
-    console.log(ret);
+    await insertUser({ address: wallet });
     revalidatePath("/");
-    return true;
+    return { success: true };
   } catch (error) {
-    console.log(error);
+    console.error("optinStaking failed:", error);
+    return { success: false, error: "Failed to opt in to staking" };
   }
 }
 
@@ -36,16 +31,15 @@ export async function claimStakingReward() {
   const session = await getServerSession(options);
   const wallet = session?.user?.name;
 
-  console.log("inside server", wallet);
-  if (!wallet) return false;
+  if (!wallet) return { success: false, error: "Not authenticated" };
 
   try {
-    const ret = await claimReward(wallet);
-    console.log(ret);
+    await claimReward(wallet);
     revalidatePath("/");
-    return true;
+    return { success: true };
   } catch (error) {
-    console.log(error);
+    console.error("claimStakingReward failed:", error);
+    return { success: false, error: "Failed to claim reward" };
   }
 }
 
@@ -54,20 +48,35 @@ export async function addHolding(
   address: string,
   contract: string
 ) {
+  const session = await getServerSession(options);
+  const wallet = session?.user?.name;
+  if (!wallet) return { success: false, error: "Not authenticated" };
+
+  if (wallet.toLowerCase() !== address.toLowerCase()) {
+    return { success: false, error: "Address mismatch" };
+  }
+
+  if (!address.match(/^0x[a-fA-F0-9]{40}$/))
+    return { success: false, error: "Invalid address" };
+  if (!contract.match(/^0x[a-fA-F0-9]{40}$/))
+    return { success: false, error: "Invalid contract" };
+  if (!Number.isInteger(tokenId) || tokenId < 0)
+    return { success: false, error: "Invalid tokenId" };
+
   const holding: NewHolding = {
     address,
-    holdingMonth: "2024-12",
+    holdingMonth: holdingMonth(new Date()),
     contract,
     tokenId: tokenId.toString(),
     snapshotDate: new Date(),
   };
+
   try {
-    console.log("stakeNFT", holding);
-    const result = await stakeNFT(holding);
-    console.log(result);
+    await stakeNFT(holding);
     revalidatePath("/");
-    return true;
+    return { success: true };
   } catch (error) {
-    console.log(error);
+    console.error("addHolding failed:", error);
+    return { success: false, error: "Failed to add holding" };
   }
 }

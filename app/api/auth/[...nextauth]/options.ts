@@ -31,12 +31,10 @@ export const options: NextAuthOptions = {
             domain: nextAuthUrl.host,
             nonce: await getCsrfToken({ req: { headers: req.headers } }),
           });
-          console.log("siwe:", result);
-          
           if (result.success) {
             let userRole = "user";
 
-            if (siwe.address === "0x3B7025b9fd1F6C156de27DfD787776302cD522b7") {
+            if (siwe.address === process.env.ADMIN_WALLET_ADDRESS) {
               userRole = "admin";
             }
 
@@ -62,8 +60,6 @@ export const options: NextAuthOptions = {
       return token;
     },
     async session({ session, token }: { session: any; token: any }) {
-      console.log("Inside session callback", session, token);
-
       session.address = token.sub;
       session.user.name = token.sub;
       session.user.role = token.role;

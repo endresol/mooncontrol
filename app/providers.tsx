@@ -44,7 +44,7 @@ const connectors = connectorsForWallets(
   ],
   {
     appName: "MoonControl",
-    projectId: "aa05c57bb029900be2fc78b619cd4558",
+    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? "aa05c57bb029900be2fc78b619cd4558",
   }
 );
 const queryClient = new QueryClient();

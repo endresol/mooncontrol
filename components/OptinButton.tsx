@@ -8,10 +8,6 @@ import { optinStaking } from "@/app/staking/server_actions";
 import { useFormStatus } from "react-dom";
 import { useFormState } from "react-dom";
 
-const initialState = {
-  result: false,
-};
-
 function SubmitButton() {
   const { pending } = useFormStatus();
 
@@ -31,8 +27,7 @@ type props = {
 };
 
 export default function OptinButton(props: props) {
-  console.log("inside wallet is ", props.wallet);
-  const [state, formAction] = useFormState(optinStaking, true);
+  const [state, formAction] = useFormState(optinStaking, { success: true });
 
   return (
     <form action={formAction}>

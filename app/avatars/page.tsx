@@ -27,45 +27,53 @@ export default async function Avatars() {
   let myAvatars: avatar[] = [];
 
   if (wallet) {
-    const data = await db
-      .selectDistinct({
-        id: avatar_owners.id,
-        address: avatar_owners.address,
-        isStaked: stakingHoldings.tokenId,
-        stakedAt: sql<Date>`MIN(${stakingHoldings.snapshotDate})`,
-      })
-      .from(avatar_owners)
-      .leftJoin(
-        stakingHoldings,
-        and(
-          eq(stakingHoldings.tokenId, avatar_owners.id),
-          eq(stakingHoldings.address, avatar_owners.address),
-          eq(stakingHoldings.contract, contract as string)
+    try {
+      const data = await db
+        .selectDistinct({
+          id: avatar_owners.id,
+          address: avatar_owners.address,
+          isStaked: stakingHoldings.tokenId,
+          stakedAt: sql<Date>`MIN(${stakingHoldings.snapshotDate})`,
+        })
+        .from(avatar_owners)
+        .leftJoin(
+          stakingHoldings,
+          and(
+            eq(stakingHoldings.tokenId, avatar_owners.id),
+            eq(stakingHoldings.address, avatar_owners.address),
+            eq(stakingHoldings.contract, contract as string)
+          )
         )
-      )
-      .where(eq(avatar_owners.address, wallet))
-      .groupBy(
-        avatar_owners.id,
-        avatar_owners.address,
-        stakingHoldings.tokenId
-      );
+        .where(eq(avatar_owners.address, wallet))
+        .groupBy(
+          avatar_owners.id,
+          avatar_owners.address,
+          stakingHoldings.tokenId
+        );
 
-    data.map((row) =>
-      myAvatars.push({
-        id: row.id,
-        address: row.address as string,
-        isStaked: row.isStaked !== null,
-        stakedAt: row.stakedAt,
-        contract: contract as string,
-      })
-    );
+      data.map((row) =>
+        myAvatars.push({
+          id: row.id,
+          address: row.address as string,
+          isStaked: row.isStaked !== null,
+          stakedAt: row.stakedAt,
+          contract: contract as string,
+        })
+      );
+    } catch (error) {
+      console.error("Failed to fetch avatars:", error);
+    }
   }
 
   return (
     <>
       <div className="w-full avatar-background">
         {myAvatars.length > 0 ? (
-          <AvatarGrid avatars={myAvatars} is3d={true} />
+          <AvatarGrid
+            avatars={myAvatars}
+            is3d={true}
+            name="3D Moon Ape Lab Avatar"
+          />
         ) : (
           <div>You do not own any avatars yet.</div>
         )}
