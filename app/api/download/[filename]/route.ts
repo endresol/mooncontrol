@@ -12,9 +12,9 @@ const avatarAddress = process.env.NEXT_PUBLIC_AVATAR_CONTRACT as Address;
 const avatarFolder = process.env.AVATAR_BLENDER_FOLDER;
 
 type GetParams = {
-  params: {
+  params: Promise<{
     filename: string;
-  };
+  }>;
 };
 
 const client = createPublicClient({
@@ -33,7 +33,7 @@ export async function GET(req: Request, { params }: GetParams) {
   });
 
   if (session) {
-    const { filename } = params;
+    const { filename } = await params;
     console.log("filename", filename);
 
     if (filename === "LAB") {

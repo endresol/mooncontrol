@@ -1,6 +1,7 @@
-import type { Config } from "drizzle-kit";
+import { defineConfig } from "drizzle-kit";
 
-export default {
+export default defineConfig({
   schema: "./db/schema",
   out: "./db/migrations",
-} satisfies Config;
+  dialect: "mysql",
+});

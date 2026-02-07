@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import { claimStakingReward } from "@/app/staking/server_actions";
 import { useFormStatus } from "react-dom";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -27,7 +27,7 @@ type props = {
 };
 
 export default function ClaimButton(props: props) {
-  const [state, formAction] = useFormState(claimStakingReward, { success: true });
+  const [state, formAction] = useActionState(claimStakingReward, { success: true });
 
   return (
     <form action={formAction}>
