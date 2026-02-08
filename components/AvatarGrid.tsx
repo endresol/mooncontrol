@@ -172,7 +172,6 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d, name }) => {
         }`}
       >
         {currentItems.map((avatar) => (
-          <>
             <AvatarCard
               key={avatar.id.toString()}
               apeId={avatar.id.toString()}
@@ -184,7 +183,6 @@ const AvatarGrid: React.FC<AvatarCardProps> = ({ avatars, is3d, name }) => {
                 StakeClick(avatar.id, avatar.address, avatar.contract)
               }
             />
-          </>
         ))}
 
       </div>
