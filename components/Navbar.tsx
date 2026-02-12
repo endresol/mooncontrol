@@ -66,11 +66,11 @@ export default async function Navbar() {
         </div>
       </div> */}
         <nav>
-          <ul className="flex space-x-4 gap-6">
+          <ul className="flex flex-wrap justify-center gap-3 lg:gap-6">
             {menuLinks.map((link, index) => (
               <li key={index}>
                 <Link href={link.href}>
-                  <span className="inline-block px-8 text-center py-3 bg-white text-bison-300 uppercase text-3xl font-bold rounded-3xl hover:bg-bison-200 hover:text-bison-500 transition-colors">
+                  <span className="inline-block px-4 lg:px-8 text-center py-2 lg:py-3 bg-white text-bison-300 uppercase font-bold rounded-3xl hover:bg-bison-200 hover:text-bison-500 transition-colors whitespace-nowrap" style={{ fontSize: "clamp(1.1rem, 2vw, 1.875rem)" }}>
                     {link.label}
                   </span>
                 </Link>
