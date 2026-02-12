@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { mainnet } from "wagmi/chains";
 
-import { config } from "@/config";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import {
@@ -24,7 +23,6 @@ import {
 import { createConfig } from "wagmi";
 
 import {
-  getDefaultConfig,
   RainbowKitProvider,
   lightTheme,
 } from "@rainbow-me/rainbowkit";
@@ -48,13 +46,6 @@ const connectors = connectorsForWallets(
   }
 );
 const queryClient = new QueryClient();
-
-// const rainbow_config = getDefaultConfig({
-//   ...config,
-
-//   appName: "MoonControl",
-//   projectId: "aa05c57bb029900be2fc78b619cd4558",
-// });
 
 const rainbow_config = createConfig({
   chains: [mainnet],

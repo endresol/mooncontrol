@@ -6,6 +6,11 @@ import Link from "next/link";
 
 const menuLinks = [
   {
+    href: "/",
+    label: "Home",
+    login: null,
+  },
+  {
     href: "/avatars",
     label: "3D MAL",
     login: true,
@@ -16,18 +21,18 @@ const menuLinks = [
     login: true,
   },
   {
-    href: "/",
-    label: "Home",
-    login: null,
+    href: "/staking",
+    label: "Staking",
+    login: true,
+  },
+  {
+    href: "/resources",
+    label: "Resources",
+    login: true,
   },
   {
     href: "/profile",
     label: "Profile",
-    login: true,
-  },
-  {
-    href: "/staking",
-    label: "Staking",
     login: true,
   },
   // {
@@ -65,7 +70,7 @@ export default async function Navbar() {
             {menuLinks.map((link, index) => (
               <li key={index}>
                 <Link href={link.href}>
-                  <span className="inline-block min-w-44 text-center py-3 bg-white text-bison-300 uppercase text-3xl font-bold rounded-3xl hover:bg-bison-200 hover:text-bison-500 transition-colors">
+                  <span className="inline-block px-8 text-center py-3 bg-white text-bison-300 uppercase text-3xl font-bold rounded-3xl hover:bg-bison-200 hover:text-bison-500 transition-colors">
                     {link.label}
                   </span>
                 </Link>

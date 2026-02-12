@@ -9,6 +9,8 @@ const nextConfig = {
         pathname: "/static/**",
       },
     ],
+    minimumCacheTTL: 3600,
+    unoptimized: process.env.NODE_ENV === "development",
   },
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')

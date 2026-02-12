@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
-import { FaHome, FaUser, FaCog, FaBitcoin } from "react-icons/fa";
+import { FaHome, FaUser, FaCog, FaBitcoin, FaDownload } from "react-icons/fa";
 import { GiMonkey } from "react-icons/gi";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -41,6 +41,12 @@ const menuLinks = [
     href: "/staking",
     icon: <FaBitcoin />,
     label: "Staking",
+    login: true,
+  },
+  {
+    href: "/resources",
+    icon: <FaDownload />,
+    label: "Resources",
     login: true,
   },
   {
