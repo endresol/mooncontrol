@@ -27,6 +27,66 @@ export const resources: Resource[] = [
       "https://storage.moonapelab.io/static/blender/moon-ape-lab/moonLabBuild For The Apes.blend",
     fileName: "moon-ape-lab.blend",
   },
+  {
+    slug: "mal-diner",
+    title: "Blender Scene - DoubleDells Diner",
+    description: "Downloadable Blender Scene - DoubleDells Diner",
+    mainImage:
+      "https://storage.moonapelab.io/static/blender/Diner/0-outside_diner.webp",
+    galleryImages: [
+      "https://storage.moonapelab.io/static/blender/Diner/1-diner_with_burgs_n_shakes.webp",
+      "https://storage.moonapelab.io/static/blender/Diner/2-diner_food_feast.webp",
+      "https://storage.moonapelab.io/static/blender/Diner/3-kitchen.webp",
+    ],
+    fileUrl:
+      "https://storage.moonapelab.io/static/blender/Diner/moonLabBuild For The Apes.blend",
+    fileName: "MAL-doubledells-diner.blend",
+  },
+  {
+    slug: "mal-inkz",
+    title: "Blender Scene - Inkz Studio",
+    description: "Downloadable Blender Scene - Inkz Studio",
+    mainImage:
+      "https://storage.moonapelab.io/static/blender/Inkz/0-inkz_parlour.webp",
+    galleryImages: [
+      "https://storage.moonapelab.io/static/blender/Inkz/1-tattoo-frames.webp",
+      "https://storage.moonapelab.io/static/blender/Inkz/2-inkz-in-chair.webp",
+      "https://storage.moonapelab.io/static/blender/Inkz/3-inkz-counter-pipes.webp",
+    ],
+    fileUrl:
+      "https://storage.moonapelab.io/static/blender/Inkz/moonLabBuild For The Apes.blend",
+    fileName: "mal-inkz-studio.blend",
+  },
+  {
+    slug: "mal-park",
+    title: "Blender Scene - Moonie Park",
+    description: "Downloadable Blender Scene - Moonie Park",
+    mainImage:
+      "https://storage.moonapelab.io/static/blender/MooniePark/0-main-moonie_park.webp",
+    galleryImages: [
+      "https://storage.moonapelab.io/static/blender/MooniePark/1-bench_seat.webp",
+      "https://storage.moonapelab.io/static/blender/MooniePark/2-moonie_park_cinema2.webp",
+      "https://storage.moonapelab.io/static/blender/MooniePark/3-moonie_park_cinema.webp",
+    ],
+    fileUrl:
+      "https://storage.moonapelab.io/static/blender/MooniePark/moonLabBuild For The Apes.blend",
+    fileName: "mal-moonie-park.blend",
+  },
+  {
+    slug: "mal-control",
+    title: "Blender Scene - Control Room",
+    description: "Downloadable Blender Scene - Control Room",
+    mainImage:
+      "https://storage.moonapelab.io/static/blender/ControlRoom/0-control_deck.webp",
+    galleryImages: [
+      "https://storage.moonapelab.io/static/blender/ControlRoom/1-meteor.webp",
+      "https://storage.moonapelab.io/static/blender/ControlRoom/2-lockers_n_suits.webp",
+      "https://storage.moonapelab.io/static/blender/ControlRoom/3-control_chair.webp",
+    ],
+    fileUrl:
+      "https://storage.moonapelab.io/static/blender/ControlRoom/moonLabBuild For The Apes.blend",
+    fileName: "mal-control-room.blend",
+  },
 ];
 
 export function getResourceBySlug(slug: string): Resource | undefined {
