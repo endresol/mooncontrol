@@ -34,7 +34,7 @@ export default async function Resources() {
   const resourceList = getResourcesForClient();
 
   return (
-    <div className="w-full avatar-background">
+    <div className="w-full page-bg bg-resources">
       <ResourceGrid
         resources={resourceList}
         isLoggedIn={isLoggedIn}

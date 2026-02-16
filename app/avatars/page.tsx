@@ -67,7 +67,7 @@ export default async function Avatars() {
 
   return (
     <>
-      <div className="w-full avatar-background">
+      <div className="w-full page-bg bg-avatar">
         {myAvatars.length > 0 ? (
           <AvatarGrid
             avatars={myAvatars}

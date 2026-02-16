@@ -98,31 +98,6 @@
   width: 200px !important;
 }
 
-.wave-layer {
-  height: 250px; /* Adjust the height as necessary */
-}
-
-.wave-layer-top {
-  position: absolute;
-  width: 100%;
-  height: 250px; /* Adjust the height as necessary */
-}
-
-.wave1 {
-  background-size: cover;
-  z-index: 1;
-}
-
-.wave2 {
-  background-size: cover;
-  z-index: 2;
-}
-
-.wave3 {
-  background-size: cover;
-  z-index: 3;
-}
-
 [data-testid="rk-connect-button"] {
   text-transform: uppercase;
   border-radius: 9999px !important;
@@ -130,63 +105,25 @@
   line-height: 2rem !important;
   width: 100% !important;
   height: 100% !important;
-  padding: 0.5rem 1rem !important; 
+  padding: 0.5rem 1rem !important;
   z-index: 10 !important;
 }
 
-.footerbackground {
-  height: 270px; /* Adjust the height as necessary */
-
-  background-image: url("/waves-bottom.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom;
-  background-color: transparent;
-} 
-
-.headerbackground {
-  background-image: url("/waves-top.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
-  background-color: transparent;
-} 
-
-.staking-background::before {
+/* Full-viewport page background with optional opacity */
+.page-bg::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("/Studio_14_1_optimized.png");
+  background-image: var(--bg-image);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
+  opacity: var(--bg-opacity, 0.5);
   z-index: -1;
 }
 
-.avatar-background::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/mal-studio-bg-6.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.5;
-  z-index: -1;
-}
-
-.background-home::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/image-min.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-}
-
-.ontop {
-  z-index:70;
-}
+.bg-home       { --bg-image: url("/image-min.png"); --bg-opacity: 1; }
+.bg-avatar     { --bg-image: url("/mal-studio-bg-6.jpg"); }
+.bg-staking    { --bg-image: url("/Studio_14_1_optimized.png"); }
+.bg-profile    { --bg-image: url("/staking-background.png"); }
+.bg-resources  { --bg-image: url("/Studio_2-optimized.png"); }

@@ -17,8 +17,7 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
   onImageClick,
 }) => {
   const canDownload = isLoggedIn && isHolder;
-  const openSeaUrl =
-    "https://opensea.io/collection/moon-ape-lab-3d";
+  const openSeaUrl = "https://opensea.io/collection/moon-ape-lab-3d";
 
   return (
     <div className="bg-white shadow-lg overflow-hidden border-white border-8 rounded-2xl">
@@ -57,7 +56,6 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
         <h2 className="text-xl font-semibold text-bison-500">
           {resource.title}
         </h2>
-        <p className="text-sm text-bison-400 mt-2">{resource.description}</p>
 
         {canDownload ? (
           <a

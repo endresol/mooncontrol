@@ -26,7 +26,7 @@ export default async function Staking() {
 
   return (
     <>
-      <div className="w-full staking-background">
+      <div className="w-full page-bg bg-staking">
         <div className="flex flex-col relative z-10 items-center justify-center gap-8 min-w-[1100px]">
           <div className="min-w-[1100px]">
             <div className="card p-4 bg-white text-bison-500 shadow-sm rounded-lg flex justify-between items-center">

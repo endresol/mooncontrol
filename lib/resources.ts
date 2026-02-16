@@ -25,7 +25,7 @@ export const resources: Resource[] = [
     ],
     fileUrl:
       "https://storage.moonapelab.io/static/blender/moon-ape-lab/moonLabBuild For The Apes.blend",
-    fileName: "moon-ape-lab.blend",
+    fileName: "MoonApe Lab.blend",
   },
   {
     slug: "mal-diner",
@@ -69,8 +69,8 @@ export const resources: Resource[] = [
       "https://storage.moonapelab.io/static/blender/MooniePark/3-moonie_park_cinema.webp",
     ],
     fileUrl:
-      "https://storage.moonapelab.io/static/blender/MooniePark/moonLabBuild For The Apes.blend",
-    fileName: "mal-moonie-park.blend",
+      "https://storage.moonapelab.io/static/blender/MooniePark/164-6684-5548-65485-Moonie Park.blend",
+    fileName: "Moonie Park.blend",
   },
   {
     slug: "mal-control",
@@ -84,8 +84,8 @@ export const resources: Resource[] = [
       "https://storage.moonapelab.io/static/blender/ControlRoom/3-control_chair.webp",
     ],
     fileUrl:
-      "https://storage.moonapelab.io/static/blender/ControlRoom/moonLabBuild For The Apes.blend",
-    fileName: "mal-control-room.blend",
+      "https://storage.moonapelab.io/static/blender/ControlRoom/123-321-123-432-543-65352-Control Deck.blend",
+    fileName: "Control Deck.blend",
   },
 ];
 
