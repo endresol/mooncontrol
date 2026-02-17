@@ -39,7 +39,7 @@ export const resources: Resource[] = [
       "https://storage.moonapelab.io/static/blender/Diner/3-kitchen.webp",
     ],
     fileUrl:
-      "https://storage.moonapelab.io/static/blender/Diner/moonLabBuild For The Apes.blend",
+      "https://storage.moonapelab.io/static/blender/Diner/558-664-2259-5486-Diner.blend",
     fileName: "MAL-doubledells-diner.blend",
   },
   {
@@ -54,7 +54,7 @@ export const resources: Resource[] = [
       "https://storage.moonapelab.io/static/blender/Inkz/3-inkz-counter-pipes.webp",
     ],
     fileUrl:
-      "https://storage.moonapelab.io/static/blender/Inkz/moonLabBuild For The Apes.blend",
+      "https://storage.moonapelab.io/static/blender/Inkz/456-456-2588-24892-Inkz Studio.blend",
     fileName: "mal-inkz-studio.blend",
   },
   {
